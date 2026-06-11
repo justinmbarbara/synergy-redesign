@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Ome;Timothy;;;
+FN:Timothy Ome
+ORG:Synergy Advisors, LLC
+TITLE:Senior Advisor
+TEL;TYPE=WORK,VOICE:+13104143200
+EMAIL;TYPE=WORK:info@synergyadvisorsllc.com
+ADR;TYPE=WORK:;;880 Apollo Street\, Suite 230;El Segundo;CA;90245;USA
+END:VCARD

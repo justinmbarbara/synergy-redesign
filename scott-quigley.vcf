@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Quigley;Scott;;;
+FN:Scott Quigley
+ORG:Synergy Advisors, LLC
+TITLE:Managing Director
+TEL;TYPE=WORK,VOICE:+13104143205
+EMAIL;TYPE=WORK:q@synergyadvisorsllc.com
+ADR;TYPE=WORK:;;880 Apollo Street\, Suite 230;El Segundo;CA;90245;USA
+END:VCARD
