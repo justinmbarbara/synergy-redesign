@@ -66,34 +66,70 @@ function animateCount(element) {
   requestAnimationFrame(update);
 }
 
-const filterButtons = document.querySelectorAll(".filter");
-if (filterButtons.length) {
-  const state = {};
-  filterButtons.forEach(button => {
-    button.type = "button";
-    if (!(button.dataset.group in state)) state[button.dataset.group] = "all";
-    button.setAttribute("aria-pressed", String(button.classList.contains("active")));
-  });
+const filterPanel = document.querySelector(".filters");
+if (filterPanel) {
+  const filterButtons = filterPanel.querySelectorAll(".filter");
+  const sectorButtons = filterPanel.querySelectorAll('.filter[data-group="sector"]');
   const cards = document.querySelectorAll(".deal-card[data-service]");
   const empty = document.querySelector("#deal-empty");
   const resultCount = document.querySelector("#tombstone-count");
-  filterButtons.forEach(button => button.addEventListener("click", () => {
-    const group = button.dataset.group;
-    state[group] = button.dataset.value;
-    document.querySelectorAll(`.filter[data-group="${group}"]`).forEach(item => {
-      const active = item === button;
+  const state = { market: "all", sector: "all" };
+
+  filterButtons.forEach(button => {
+    button.type = "button";
+    button.setAttribute("aria-pressed", String(button.classList.contains("active")));
+  });
+
+  const setActive = (group, value) => {
+    filterPanel.querySelectorAll(`.filter[data-group="${group}"]`).forEach(item => {
+      const active = item.dataset.value === value;
       item.classList.toggle("active", active);
       item.setAttribute("aria-pressed", String(active));
     });
+  };
+
+  // Only show sector chips that belong to the selected market ("All" market shows every sector).
+  const updateSectorVisibility = () => {
+    sectorButtons.forEach(button => {
+      const market = button.dataset.market;
+      button.hidden = !(!market || state.market === "all" || market === state.market);
+    });
+  };
+
+  const applyFilters = () => {
     let visible = 0;
     cards.forEach(card => {
-      const match = Object.entries(state).every(([group, value]) => value === "all" || card.dataset[group] === value);
+      const markets = card.dataset.market.split(" ");
+      const sectors = card.dataset.sector.split(" ");
+      const match = (state.market === "all" || markets.includes(state.market))
+        && (state.sector === "all" || sectors.includes(state.sector));
       card.hidden = !match;
       if (match) visible += 1;
     });
+    [...cards]
+      .sort((a, b) => {
+        const orderKey = state.sector === "all" ? "defaultOrder" : `order${state.sector[0].toUpperCase()}${state.sector.slice(1)}`;
+        return Number(a.dataset[orderKey]) - Number(b.dataset[orderKey]);
+      })
+      .forEach(card => card.parentElement.appendChild(card));
     if (empty) empty.hidden = visible !== 0;
     if (resultCount) resultCount.textContent = `${visible} representative engagement${visible === 1 ? "" : "s"}`;
+  };
+
+  filterButtons.forEach(button => button.addEventListener("click", () => {
+    const group = button.dataset.group;
+    state[group] = button.dataset.value;
+    setActive(group, state[group]);
+    if (group === "market") {
+      // A sector from the other market would yield zero results, so reset to All.
+      state.sector = "all";
+      setActive("sector", "all");
+      updateSectorVisibility();
+    }
+    applyFilters();
   }));
+
+  updateSectorVisibility();
 }
 
 const TEAM_PORTRAITS = {
