@@ -10,26 +10,34 @@ if (menuButton && nav) {
   nav.id ||= "primary-navigation";
   menuButton.type = "button";
   menuButton.setAttribute("aria-controls", nav.id);
+
+  const closeMenu = ({ restoreFocus = false } = {}) => {
+    nav.classList.remove("open");
+    document.body.classList.remove("menu-open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation");
+    if (restoreFocus) menuButton.focus();
+  };
+
   menuButton.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
     document.body.classList.toggle("menu-open", open);
     menuButton.setAttribute("aria-expanded", String(open));
     menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
   });
-  nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-    nav.classList.remove("open");
-    document.body.classList.remove("menu-open");
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.setAttribute("aria-label", "Open navigation");
-  }));
+  nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => closeMenu()));
   addEventListener("keydown", event => {
     if (event.key !== "Escape" || !nav.classList.contains("open")) return;
-    nav.classList.remove("open");
-    document.body.classList.remove("menu-open");
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.setAttribute("aria-label", "Open navigation");
-    menuButton.focus();
+    closeMenu({ restoreFocus: true });
   });
+
+  const desktopNavigation = matchMedia("(min-width: 901px)");
+  desktopNavigation.addEventListener("change", event => {
+    if (event.matches) closeMenu();
+  });
+  addEventListener("resize", () => {
+    if (innerWidth >= 901 && nav.classList.contains("open")) closeMenu();
+  }, { passive: true });
 }
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
