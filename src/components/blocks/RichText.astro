@@ -1,0 +1,9 @@
+---
+import { md } from "../../lib/markdown";
+import Section from "./Section.astro";
+
+const { background, section_id, body } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container legal-copy" set:html={md(body)} />
+</Section>

@@ -1,0 +1,13 @@
+---
+import { mdInline } from "../../lib/markdown";
+
+const { eyebrow, heading, lede, animate = true } = Astro.props;
+const cls = (base: string, extra: string) => (animate ? `${base} ${extra}`.trim() : base).trim() || undefined;
+---
+<header class="page-hero">
+  <div class="container">
+    {eyebrow && <div class={cls("eyebrow", "reveal")} data-editable="text" data-prop="eyebrow" data-type="span">{eyebrow}</div>}
+    <h1 class={animate ? "reveal delay-1" : undefined} data-editable="text" data-prop="heading" data-type="text" set:html={mdInline(heading)} />
+    {lede && <p class={cls("lede", "reveal delay-2")} data-editable="text" data-prop="lede" data-type="text" set:html={mdInline(lede)} />}
+  </div>
+</header>

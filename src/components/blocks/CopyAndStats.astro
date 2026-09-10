@@ -1,0 +1,22 @@
+---
+import Section from "./Section.astro";
+import CopyBlock from "./CopyBlock.astro";
+import StatsPanel from "./StatsPanel.astro";
+
+const { background, section_id, kicker, heading, body, buttons = [], stats = [], reverse = false } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container split">
+    {reverse ? (
+      <Fragment>
+        <StatsPanel stats={stats} class="stats-panel reveal" />
+        <CopyBlock kicker={kicker} heading={heading} body={body} buttons={buttons} class="copy reveal delay-1" />
+      </Fragment>
+    ) : (
+      <Fragment>
+        <CopyBlock kicker={kicker} heading={heading} body={body} buttons={buttons} class="copy reveal" />
+        <StatsPanel stats={stats} class="stats-panel reveal delay-1" />
+      </Fragment>
+    )}
+  </div>
+</Section>

@@ -1,0 +1,13 @@
+---
+import Section from "./Section.astro";
+import CopyBlock from "./CopyBlock.astro";
+import HighlightCard from "./HighlightCard.astro";
+
+const { background, section_id, kicker, heading, body, buttons = [], card = {} } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container senior-led">
+    <HighlightCard card={card} class="sector-card reveal" />
+    <CopyBlock kicker={kicker} heading={heading} body={body} buttons={buttons} class="copy reveal delay-1" />
+  </div>
+</Section>

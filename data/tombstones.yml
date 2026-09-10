@@ -1,0 +1,802 @@
+# Transaction tombstones shown on the Transactions page.
+# The order of this list is the order shown when no sector filter is applied.
+# "sector_order" is an advanced, optional field that pins a tombstone's position
+# inside a single sector filter. Leave it empty on new tombstones - they will
+# appear at the end of that sector's list.
+tombstones:
+  - image: /assets/tombstones/DCITombstone.png
+    alt: Device Consulting Incorporated sold to Sagility, a BPEA EQT portfolio company
+    service: sell
+    sectors:
+      - payors
+    case_study: ''
+    sector_order:
+      payors: 0
+  - image: /assets/tombstones/Medisked-Tombstone.png
+    alt: MediSked sold to CaseWorthy, a Symphony Technology Group portfolio company
+    service: sell
+    sectors:
+      - payors
+      - providers
+    case_study: ''
+    sector_order:
+      payors: 1
+      providers: 4
+  - image: /assets/tombstones/Webp.net-resizeimage-6.png
+    alt: KEPRO, an Apax Partners portfolio company, acquired Health Solutions
+    service: buy
+    sectors:
+      - payors
+      - government
+    case_study: ''
+    sector_order:
+      payors: 2
+      government: 0
+  - image: /assets/tombstones/Optumas-Tombstone-3.png
+    alt: Optumas sold to CBIZ
+    service: sell
+    sectors:
+      - payors
+      - government
+    case_study: ''
+    sector_order:
+      payors: 3
+      government: 1
+  - image: /assets/tombstones/HID-Tombstone-4.5-3.png
+    alt: Health Information Designs, a BV Investment Partners portfolio company, sold to KEPRO
+    service: sell
+    sectors:
+      - payors
+      - government
+    case_study: ''
+    sector_order:
+      payors: 4
+      government: 3
+  - image: /assets/tombstones/SCA-Tombstone-1.png
+    alt: Southwest Consulting Associates sold to Moss Adams
+    service: sell
+    sectors:
+      - payors
+      - government
+    case_study: ''
+    sector_order:
+      payors: 5
+      government: 2
+  - image: /assets/tombstones/MARCHVisionCare_united2-1.png
+    alt: MARCH Vision Care sold to UnitedHealthcare
+    service: sell
+    sectors:
+      - payors
+      - government
+    case_study: ''
+    sector_order:
+      payors: 6
+      government: 8
+  - image: /assets/tombstones/CV-Tombstone.png
+    alt: Clear Vision Information Systems sold to SCIO Health Analytics
+    service: sell
+    sectors:
+      - payors
+      - government
+    case_study: clear-vision
+    sector_order:
+      payors: 7
+      government: 4
+  - image: /assets/tombstones/SCIONDental_feat.png
+    alt: SCION Dental strategic partnership advisory
+    service: strategic
+    sectors:
+      - payors
+    case_study: ''
+    sector_order:
+      payors: 8
+  - image: /assets/tombstones/Molina_Abri_feat.png
+    alt: Molina Healthcare acquired Abri Health Plan
+    service: buy
+    sectors:
+      - payors
+      - government
+    case_study: ''
+    sector_order:
+      payors: 9
+      government: 6
+  - image: /assets/tombstones/MARCHVisionCare_feat.png
+    alt: MARCH Vision Care Series A private equity financing
+    service: capital
+    sectors:
+      - payors
+      - government
+    case_study: march-vision-care
+    sector_order:
+      payors: 10
+      government: 9
+  - image: /assets/tombstones/GHS_Emdeon_feat.png
+    alt: Goold Health Systems sold to Emdeon
+    service: sell
+    sectors:
+      - payors
+      - government
+    case_study: goold-health-systems
+    sector_order:
+      payors: 11
+      government: 5
+  - image: /assets/tombstones/Molina_Unisys_feat.png
+    alt: Molina Healthcare acquired the Health Information Management business from Unisys
+    service: buy
+    sectors:
+      - payors
+      - government
+    case_study: molina-healthcare
+    sector_order:
+      payors: 12
+      government: 7
+  - image: /assets/tombstones/SierraHealth_FolksAmerica_feat.png
+    alt: Sierra Health Services sold certain assets to Folksamerica Holding Company
+    service: sell
+    sectors:
+      - payors
+    case_study: ''
+    sector_order:
+      payors: 13
+  - image: /assets/tombstones/iHealthTechnologies_feat.png
+    alt: iHealth Technologies strategic partnership advisory
+    service: strategic
+    sectors:
+      - payors
+    case_study: ''
+    sector_order:
+      payors: 14
+  - image: /assets/tombstones/PacifiCare_IHP_feat.png
+    alt: PacifiCare acquired FHP Health Care
+    service: buy
+    sectors:
+      - payors
+    case_study: ''
+    sector_order:
+      payors: 15
+  - image: /assets/tombstones/Wellpoint_Cerulean_feat.png
+    alt: WellPoint acquired Cerulean from Blue Cross Blue Shield of Georgia
+    service: buy
+    sectors:
+      - payors
+    case_study: ''
+    sector_order:
+      payors: 16
+  - image: /assets/tombstones/KidsChoice_2.png
+    alt: Kids Choice Dental Vision and Braces sold to Choice Healthcare Services
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 0
+  - image: /assets/tombstones/AHS-Allied-Tombstone2-1.png
+    alt: Automated Health Systems acquired Allied Physician Services
+    service: buy
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 1
+  - image: /assets/tombstones/TexasEmergencyCareII.png
+    alt: Texas Emergency Care Center sold to ProCare Emergency Room
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 2
+  - image: /assets/tombstones/ExcelERTombstone_1.png
+    alt: Excel ER sold to Community Health Systems
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 3
+  - image: /assets/tombstones/AWC-NaviMed-Tombstone.png
+    alt: Advantage Wound Care sold to NaviMed Capital
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 5
+  - image: /assets/tombstones/AWC-Tombstone.png
+    alt: Advantage Surgical and Wound Care acquired Baromedical Physician Associates Medical Group
+    service: buy
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 6
+  - image: /assets/tombstones/DVPD-Template-1.png
+    alt: Desert Valley Pediatric Dentistry and Orthodontics sold to Children's Choice Dental Care
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 7
+  - image: /assets/tombstones/Tombstone_Template__2_-removebg-preview-1.png
+    alt: Interstate Rehab sold to Confluent Health, a Partners Group portfolio company
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 8
+  - image: /assets/tombstones/Webp.net-resizeimage-1.png
+    alt: Family Care Specialists sold to Altais, a Blue Shield of California subsidiary
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 9
+  - image: /assets/tombstones/kdk2.png
+    alt: Kids Dental Kare sold to Western Dental
+    service: sell
+    sectors:
+      - providers
+    case_study: kids-dental-kare
+    sector_order:
+      providers: 10
+  - image: /assets/tombstones/3sbio-davita.png
+    alt: 3SBio joint venture NewCo sold to DaVita
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 11
+  - image: /assets/tombstones/esensa-davita.png
+    alt: Clinica Esensa sold to DaVita
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 12
+  - image: /assets/tombstones/Summit_FountainView_feat.png
+    alt: Summit Care Corporation sold to Fountain View in conjunction with Heritage Fund II
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 13
+  - image: /assets/tombstones/okhc-davita.png
+    alt: Oregon Kidney and Hypertension Clinic sold to DaVita
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 14
+  - image: /assets/tombstones/AdPathlabs_PathologyInc_feat.png
+    alt: AD PathLabs sold to Pathology, Inc.
+    service: sell
+    sectors:
+      - providers
+    case_study: ad-pathlabs
+    sector_order:
+      providers: 15
+  - image: /assets/tombstones/BergenBrunswig_Pharmerica_feat.png
+    alt: Bergen Brunswig acquired PharMerica
+    service: buy
+    sectors:
+      - providers
+      - medlife
+    case_study: ''
+    sector_order:
+      providers: 16
+      medlife: 17
+  - image: /assets/tombstones/Dedicated_Dental_feat.png
+    alt: Dedicated Dental sold to Gentle Dental
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 17
+  - image: /assets/tombstones/Trillium_Restora_feat.png
+    alt: Trillium Specialty Hospital sold to Restora Healthcare
+    service: sell
+    sectors:
+      - providers
+    case_study: trillium-specialty-hospital
+    sector_order:
+      providers: 18
+  - image: /assets/tombstones/PHC_FHP.png
+    alt: PHC acquired hospital assets from FHP Health Care
+    service: buy
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 19
+  - image: /assets/tombstones/CommunityPsychiatricCenters_feat-1.png
+    alt: Community Psychiatric Centers divestiture and spin-off of Transitional Hospitals Corporation
+    service: strategic
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 20
+  - image: /assets/tombstones/CDS_Liberty_feat.png
+    alt: Community Dental Services sold to Liberty Partners
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 21
+  - image: /assets/tombstones/PHC_Champion.png
+    alt: PHC merged with Champion Healthcare
+    service: sell
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 22
+  - image: /assets/tombstones/TotalRenalCare_feat.png
+    alt: Total Renal Care financial advisory
+    service: strategic
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 23
+  - image: /assets/tombstones/NME_AMI_Tenet.png
+    alt: NME acquired AMI to form Tenet Health
+    service: buy
+    sectors:
+      - providers
+    case_study: ''
+    sector_order:
+      providers: 24
+  - image: /assets/tombstones/Nuance-MD-Holdings-Template.png
+    alt: Nuance Medical sold to MD Holdings
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 0
+  - image: /assets/tombstones/Quidel_LitmusConcepts.png
+    alt: Quidel Corporation acquired Litmus Concepts
+    service: buy
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 1
+  - image: /assets/tombstones/MYT-Template.png
+    alt: South Bay Home Health Care sold to Devonshire Partners
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 2
+  - image: /assets/tombstones/Pegasus-Tombstone-2.png
+    alt: Alfred Mann Foundation products and related intellectual property portfolio sold to Medtronic
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 3
+  - image: /assets/tombstones/RES3-1.png
+    alt: Radiographic Equipment Services sold to Universal Hospital Services
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 4
+  - image: /assets/tombstones/femasys-series-b.png
+    alt: Femasys Series B venture equity financing
+    service: capital
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 5
+  - image: /assets/tombstones/ConsensysMXR2.png
+    alt: Consensys Imaging Service, a Galen Partners portfolio company, sold to MXR
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 6
+  - image: /assets/tombstones/femasys-series-c.png
+    alt: Femasys Series C venture equity financing
+    service: capital
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 7
+  - image: /assets/tombstones/SystemDynamics_Agilent_feat.png
+    alt: System Dynamics sold to Agilent Technologies
+    service: sell
+    sectors:
+      - medlife
+      - bizit
+    case_study: system-dynamics
+    sector_order:
+      medlife: 8
+      bizit: 0
+  - image: /assets/tombstones/FemaleHealthCo_feat.png
+    alt: The Female Health Company capital structure and strategic alternatives advisory
+    service: strategic
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 9
+  - image: /assets/tombstones/Aclara-copy_feat.png
+    alt: Aclara BioSciences valuation opinion
+    service: strategic
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 10
+  - image: /assets/tombstones/Collateral_Schering_feat.png
+    alt: Collateral Therapeutics sold to Schering
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 11
+  - image: /assets/tombstones/AlarisMedical_feat.png
+    alt: Alaris Medical Systems transformational recapitalization
+    service: strategic
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 12
+  - image: /assets/tombstones/Ventana.png
+    alt: Ventana equity PIPE financing
+    service: capital
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 13
+  - image: /assets/tombstones/adams-series-a.png
+    alt: Adams Respiratory Therapeutics Series A venture equity financing
+    service: capital
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 14
+  - image: /assets/tombstones/CardioVascularDynamics.png
+    alt: CardioVascular Dynamics merged with Radiance Medical Systems
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 15
+  - image: /assets/tombstones/adams-series-b.png
+    alt: Adams Respiratory Therapeutics Series B venture equity financing
+    service: capital
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 16
+  - image: /assets/tombstones/Steri-Oss_Nobel_feat.png
+    alt: Steri-Oss sold to Nobel Biocare
+    service: sell
+    sectors:
+      - medlife
+    case_study: ''
+    sector_order:
+      medlife: 18
+  - image: /assets/middle-market/CDCC_feat-1.png
+    alt: CDCC Products sold to Ecolab
+    service: sell
+    sectors:
+      - consumer
+    case_study: cdcc-products
+    sector_order:
+      consumer: 0
+  - image: /assets/middle-market/TarrantApparel_feat.png
+    alt: Tarrant Apparel Group buy-side advisory and fairness opinion for Jamil Textil Companies
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 1
+  - image: /assets/middle-market/Paul_Frank-1.png
+    alt: Paul Frank Industries financial advisory
+    service: strategic
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 2
+  - image: /assets/middle-market/WilkesBashford_feat.png
+    alt: Wilkes Bashford strategic alternatives advisory and valuation analysis
+    service: strategic
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 3
+  - image: /assets/middle-market/GBMI_feat.png
+    alt: Global Brand Marketing stalking horse bidder for Converse 363 sale
+    service: strategic
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 4
+  - image: /assets/middle-market/Panchos_feat-1.png
+    alt: Pancho's Mexican Buffet sold to Rockway Properties II
+    service: sell
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 5
+  - image: /assets/middle-market/DiedrichCoffee_feat.png
+    alt: Diedrich Coffee acquired Coffee People
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 6
+  - image: /assets/middle-market/ColonyCapital_Harveys_feat.png
+    alt: Colony Capital acquired Harvey's Casino Resorts
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 7
+  - image: /assets/middle-market/Kaenon_feat.png
+    alt: Kaenon received equity financing from Richemont
+    service: capital
+    sectors:
+      - consumer
+    case_study: kaenon-polarized
+    sector_order:
+      consumer: 8
+  - image: /assets/middle-market/VikingOfficeProducts_feat.png
+    alt: Viking Office Products management buyout with Dillon Read
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 9
+  - image: /assets/middle-market/YoungsMarketCo_feat.png
+    alt: Young's Market Company management buyout by the Underwood family
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 10
+  - image: /assets/middle-market/BarrysJewelers_feat.png
+    alt: Barry's Jewelers acquired Mission Jewelers and Samuels Jewelers
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 11
+  - image: /assets/middle-market/CircleK_feat.png
+    alt: Circle K placement agent for sale-leaseback of 42 convenience store locations
+    service: capital
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 12
+  - image: /assets/middle-market/TheBoys_Cala_feat.png
+    alt: The Boys acquired Cala Foods
+    service: buy
+    sectors:
+      - consumer
+    case_study: the-boys
+    sector_order:
+      consumer: 13
+  - image: /assets/middle-market/DEP_feat.png
+    alt: DEP sold to Jeffrey Martin, Inc.
+    service: sell
+    sectors:
+      - consumer
+      - segments
+    case_study: ''
+    sector_order:
+      consumer: 14
+      segments: 6
+  - image: /assets/middle-market/FranklinMint_feat.png
+    alt: The Franklin Mint recapitalized by API
+    service: strategic
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 15
+  - image: /assets/middle-market/PeaSoupAndersons_feat.png
+    alt: Pea Soup Andersen's management buyout from Evans Family Estate
+    service: buy
+    sectors:
+      - consumer
+    case_study: ''
+    sector_order:
+      consumer: 16
+  - image: /assets/middle-market/DirectAlliance_TeleTech_feat.png
+    alt: Direct Alliance sold to TeleTech
+    service: sell
+    sectors:
+      - bizit
+    case_study: ''
+    sector_order:
+      bizit: 1
+  - image: /assets/middle-market/Hinduja_Affina_feat.png
+    alt: Hinduja Global Solutions acquired Affina
+    service: buy
+    sectors:
+      - bizit
+    case_study: ''
+    sector_order:
+      bizit: 2
+  - image: /assets/middle-market/HIVEGroup_feat.png
+    alt: The HIVE Group strategic advisory
+    service: strategic
+    sectors:
+      - bizit
+    case_study: ''
+    sector_order:
+      bizit: 3
+  - image: /assets/middle-market/Saber_AccelKKR_feat.png
+    alt: Saber recapitalized by Accel-KKR
+    service: strategic
+    sectors:
+      - bizit
+    case_study: saber-software
+    sector_order:
+      bizit: 4
+  - image: /assets/middle-market/Cellana_feat.png
+    alt: Cellana Series A preferred equity financing and strategic alternatives
+    service: capital
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 0
+  - image: /assets/middle-market/KreosCapital_feat.png
+    alt: Kreos Capital IV U.S. private placement
+    service: capital
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 1
+  - image: /assets/middle-market/LongBeachMagazine_feat.png
+    alt: Long Beach Magazine recapitalized by 944 Magazine
+    service: strategic
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 2
+  - image: /assets/middle-market/EIB_feat.png
+    alt: European Investment Bank provided financing to Thin Film Solar Technologies
+    service: capital
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 3
+  - image: /assets/middle-market/GothamVentures_feat.png
+    alt: Gotham Ventures limited partner financing for Venture Fund II
+    service: capital
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 4
+  - image: /assets/middle-market/Alma_feat.png
+    alt: Alma sold to Illinois Tool Works
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 5
+  - image: /assets/middle-market/radical-rysher.png
+    alt: Radical Productions acquired Rysher Entertainment
+    service: buy
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 7
+  - image: /assets/middle-market/ContinentalGraphics_Boeing_feat.png
+    alt: Continental Graphics Group sold to Boeing
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 8
+  - image: /assets/middle-market/CFI_Technicolor_feat.png
+    alt: Consolidated Film Industries sold to Technicolor
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 9
+  - image: /assets/middle-market/trimark-lgf.png
+    alt: Trimark Pictures merged with Lions Gate Films
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 10
+  - image: /assets/middle-market/Silicon_feat.png
+    alt: Silicon Image strategic advisory regarding DVD
+    service: strategic
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 11
+  - image: /assets/middle-market/Kofax_feat.png
+    alt: Kofax sold to DICOM
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 12
+  - image: /assets/middle-market/NetSys_feat.png
+    alt: NetSys Technologies sold to Cisco
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 13
+  - image: /assets/middle-market/NortelNetworks_feat.png
+    alt: Nortel Networks vendor financing for Sprint
+    service: capital
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 14
+  - image: /assets/middle-market/APIAlarm_feat.png
+    alt: API Alarm sold to Automated Security Holdings
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 15
+  - image: /assets/middle-market/Innovar_feat.png
+    alt: Innovar merged with Independent Witness to form inthinc
+    service: sell
+    sectors:
+      - segments
+    case_study: ''
+    sector_order:
+      segments: 16

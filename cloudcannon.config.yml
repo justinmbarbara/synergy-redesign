@@ -1,18 +1,19 @@
+# CloudCannon configuration for the Synergy Advisors Astro site.
+#
+# Where content lives:
+#   src/content/pages/*.md  - one file per page: SEO, layout options and the
+#                             "content_blocks" list that builds the page
+#   data/*.yml              - shared content: site details, navigation, footer,
+#                             transaction tombstones, case studies, team
+
 paths:
-  uploads: uploads
+  static: public
+  uploads: public/assets/uploads
   uploads_use_relative_path: false
-  static: ''
-collections_config:
-  pages:
-    path: ''
-    icon: wysiwyg
-    url: /[relative_path]
-    disable_url: false
-    include_developer_files: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
+
 timezone: America/Indianapolis
+
+# Matches the markdown renderer used by the build (src/lib/markdown.ts).
 markdown:
   engine: commonmark
   options:
@@ -32,3 +33,1314 @@ markdown:
     superscript: false
     heading_ids: false
     attributes: false
+
+collection_groups:
+  - heading: Pages
+    collections:
+      - pages
+  - heading: Site content
+    collections:
+      - data
+
+collections_config:
+  pages:
+    path: src/content/pages
+    name: Pages
+    icon: wysiwyg
+    # Keeps the original URLs: firm.md -> /firm.html, index.md -> /index.html
+    url: /[slug].html
+    disable_url: false
+    disable_add_folder: true
+    disable_file_actions: false
+    include_developer_files: false
+    _enabled_editors:
+      - visual
+      - data
+    add_options:
+      - name: Add a new page
+        icon: note_add
+        schema: default
+    create:
+      path: '{title|slugify}.md'
+    schemas:
+      default:
+        path: .cloudcannon/schemas/page.md
+        name: New page
+        icon: note_add
+        reorder_inputs: true
+        remove_extra_inputs: false
+        new_preview_url: /index.html
+
+  data:
+    path: data
+    name: Site content
+    icon: settings_suggest
+    disable_url: true
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    _enabled_editors:
+      - data
+
+# Lets Select inputs pull their choices straight from the data files.
+data_config:
+  site:
+    path: data/site.yml
+  navigation:
+    path: data/navigation.yml
+  footer:
+    path: data/footer.yml
+  transaction_filters:
+    path: data/transaction-filters.yml
+  case_studies:
+    path: data/case-studies.yml
+  team:
+    path: data/team.yml
+
+# ---------------------------------------------------------------------------
+# Inputs. These cascade, so a key such as "heading" is configured once and
+# behaves the same wherever it appears.
+# ---------------------------------------------------------------------------
+_inputs:
+  title:
+    type: text
+    comment: Internal name for this page, shown in the CloudCannon sidebar.
+    cascade: true
+
+  # ---- section content -----------------------------------------------------
+  kicker:
+    type: text
+    label: Kicker
+    comment: Small uppercase label above the heading.
+    cascade: true
+  heading:
+    type: markdown
+    label: Heading
+    comment: Wrap words in *asterisks* to show them in italic blue.
+    options:
+      bold: true
+      italic: true
+      link: false
+      removeformat: true
+      allow_resize: false
+      initial_height: 80
+    cascade: true
+  lede:
+    type: markdown
+    label: Intro paragraph
+    options:
+      bold: true
+      italic: true
+      link: true
+      removeformat: true
+      initial_height: 130
+    cascade: true
+  body:
+    type: markdown
+    label: Body
+    comment: Paragraphs and bulleted lists. Links to other sites open in a new tab automatically.
+    options:
+      bold: true
+      italic: true
+      link: true
+      bulletedlist: true
+      numberedlist: true
+      removeformat: true
+      initial_height: 260
+    cascade: true
+  quote:
+    type: textarea
+    label: Pull quote
+    comment: Quotation marks are added automatically.
+    cascade: true
+  eyebrow:
+    type: text
+    comment: Small uppercase label above the page title.
+    cascade: true
+  label:
+    type: text
+    cascade: true
+  icon:
+    type: text
+    label: Badge
+    comment: The short label inside the round badge, for example "01" or "P".
+    cascade: true
+  centered:
+    type: switch
+    label: Centre the section heading
+    cascade: true
+  animate:
+    type: switch
+    label: Animate on scroll
+    cascade: true
+  reverse:
+    type: switch
+    label: Swap the two columns
+    cascade: true
+  background:
+    type: select
+    label: Background
+    options:
+      values:
+        - value: default
+          label: White
+        - value: alt
+          label: Light grey
+      allow_empty: true
+    cascade: true
+  section_id:
+    type: text
+    label: Anchor ID
+    comment: Optional. Lets other pages link straight to this section, e.g. "sell-side" for /services.html#sell-side.
+    cascade: true
+  card_id:
+    type: text
+    label: Anchor ID
+    comment: Optional anchor for linking directly to this card.
+    cascade: true
+  style:
+    type: select
+    label: Card style
+    options:
+      values:
+        - value: ''
+          label: Blue
+        - value: secondary
+          label: Charcoal
+      allow_empty: true
+    cascade: true
+
+  # ---- images and links ----------------------------------------------------
+  image:
+    type: image
+    options:
+      max_file_size: 5000
+      max_file_size_message: Keep images under 5MB so pages stay fast.
+    cascade: true
+  image_alt:
+    type: text
+    label: Image description
+    comment: Describes the image for screen readers. Leave empty for purely decorative images.
+    cascade: true
+  photo:
+    type: image
+    label: Portrait
+    cascade: true
+  photo_alt:
+    type: text
+    label: Portrait description
+    cascade: true
+  url:
+    type: text
+    label: Link
+    comment: An internal path such as /contact.html, or a full https:// address.
+    cascade: true
+  new_tab:
+    type: switch
+    label: Open in a new tab
+    cascade: true
+  download:
+    type: switch
+    label: Download instead of opening
+    cascade: true
+  buttons:
+    type: array
+    label: Buttons
+    options:
+      structures: _structures.buttons
+    cascade: true
+  links:
+    type: array
+    options:
+      structures: _structures.links
+    cascade: true
+  tags:
+    type: array
+    label: Tags
+    options:
+      structures: _structures.tags
+    cascade: true
+
+  # ---- page building -------------------------------------------------------
+  content_blocks:
+    type: array
+    label: Page sections
+    comment: Add, remove and reorder the sections that make up this page.
+    options:
+      structures: _structures.content_blocks
+    cascade: true
+  _name:
+    hidden: true
+    cascade: true
+
+  # ---- layout and SEO ------------------------------------------------------
+  layout:
+    type: object
+    label: Layout options
+    options:
+      preview:
+        text:
+          - Layout options
+        subtext:
+          - Header, top bar and footer
+        icon: view_quilt
+    cascade: true
+  topbar:
+    type: select
+    label: Top bar
+    options:
+      values:
+        - value: full
+          label: Phone number and regulatory links
+        - value: regulatory
+          label: Regulatory links only
+    cascade: true
+  footer:
+    type: select
+    label: Footer
+    options:
+      values:
+        - value: full
+          label: Full footer
+        - value: minimal
+          label: Legal bar only
+    cascade: true
+  show_header_button:
+    type: switch
+    label: Show the header button
+    cascade: true
+  copyright_suffix:
+    type: text
+    label: Extra copyright text
+    comment: Optional text added after the copyright line, e.g. "All rights reserved."
+    cascade: true
+
+  cta_band:
+    type: object
+    label: Closing call to action
+    options:
+      preview:
+        text:
+          - key: heading
+          - Closing call to action
+        icon: campaign
+    cascade: true
+  enabled:
+    type: switch
+    label: Show this section
+    cascade: true
+
+  seo:
+    type: object
+    label: Search engine settings
+    options:
+      preview:
+        text:
+          - Search engine settings
+        subtext:
+          - Title, description and sharing image
+        icon: query_stats
+    cascade: true
+  description:
+    type: textarea
+    label: Search description
+    comment: Shown under the page title in search results. Aim for 150-160 characters.
+    cascade: true
+  social_description:
+    type: textarea
+    label: Sharing description
+    comment: Used when the page is shared on social media. Falls back to the search description.
+    cascade: true
+  canonical_url:
+    type: url
+    label: Canonical URL
+    cascade: true
+  robots:
+    type: select
+    label: Search engine indexing
+    options:
+      values:
+        - value: index,follow
+          label: Allow indexing
+        - value: noindex,follow
+          label: Hide from search engines
+    cascade: true
+  og_image:
+    type: image
+    label: Sharing image
+    comment: Optional. Falls back to the site-wide sharing image.
+    cascade: true
+  structured_data:
+    type: switch
+    label: Include company structured data
+    comment: Adds the FinancialService schema.org block. Normally only on the home page.
+    cascade: true
+  sitemap:
+    type: object
+    label: Sitemap
+    cascade: true
+  change_frequency:
+    type: select
+    options:
+      values:
+        - always
+        - hourly
+        - daily
+        - weekly
+        - monthly
+        - yearly
+        - never
+    cascade: true
+  priority:
+    type: text
+    comment: A value between 0.0 and 1.0.
+    cascade: true
+
+  # ---- transactions --------------------------------------------------------
+  tombstones:
+    type: array
+    label: Transaction tombstones
+    comment: The order here is the order shown when no sector filter is selected.
+    options:
+      structures: _structures.tombstones
+    cascade: true
+  service:
+    type: select
+    label: Service
+    options:
+      values: data.transaction_filters.service_labels
+      value_key: id
+      preview:
+        text:
+          - key: label
+    cascade: true
+  sectors:
+    type: multiselect
+    label: Sectors
+    comment: Controls which filters this tombstone appears under. The market filter follows automatically.
+    options:
+      values: data.transaction_filters.sectors
+      value_key: id
+      preview:
+        text:
+          - key: label
+    cascade: true
+  case_study:
+    type: select
+    label: Linked case study
+    comment: Optional. Adds a "View case study" link to this tombstone.
+    options:
+      allow_empty: true
+      values: data.case_studies.case_studies
+      value_key: id
+      preview:
+        text:
+          - key: title
+    cascade: true
+  sector_order:
+    hidden: true
+    comment: Advanced. Pins this tombstone's position inside a single sector filter.
+    cascade: true
+  market:
+    type: select
+    options:
+      values: data.transaction_filters.markets
+      value_key: id
+      preview:
+        text:
+          - key: label
+    cascade: true
+
+  # ---- case studies --------------------------------------------------------
+  case_studies:
+    type: array
+    label: Case studies
+    options:
+      structures: _structures.case_studies
+    cascade: true
+  subtitle:
+    type: textarea
+    cascade: true
+  highlights:
+    type: array
+    label: Highlight chips
+    options:
+      structures: _structures.tags
+    cascade: true
+  profile:
+    type: textarea
+    label: Client profile
+    cascade: true
+  situation:
+    type: textarea
+    label: Situation & approach
+    cascade: true
+  outcome:
+    type: textarea
+    label: Outcome
+    cascade: true
+  cite:
+    type: text
+    label: Quote attribution
+    cascade: true
+  bankers:
+    type: text
+    label: Lead bankers
+    cascade: true
+
+  # ---- team ----------------------------------------------------------------
+  members:
+    type: array
+    label: Team members
+    options:
+      structures: _structures.members
+    cascade: true
+  initials:
+    type: text
+    comment: Shown in place of the portrait if no photo is set.
+    cascade: true
+  role:
+    type: text
+    label: Job title
+    cascade: true
+  bio:
+    type: markdown
+    label: Biography
+    options:
+      bold: true
+      italic: true
+      link: true
+      removeformat: true
+      initial_height: 400
+    cascade: true
+
+  # ---- shared data ---------------------------------------------------------
+  items:
+    type: array
+    cascade: true
+  metrics:
+    type: array
+    label: Statistics
+    options:
+      structures: _structures.metrics
+    cascade: true
+  stats:
+    type: array
+    label: Statistic tiles
+    options:
+      structures: _structures.stats
+    cascade: true
+  principles:
+    type: array
+    label: Numbered points
+    options:
+      structures: _structures.principles
+    cascade: true
+  steps:
+    type: array
+    label: Steps
+    options:
+      structures: _structures.steps
+    cascade: true
+  cards:
+    type: array
+    label: Cards
+    cascade: true
+  names:
+    type: array
+    label: Client names
+    options:
+      structures: _structures.tags
+    cascade: true
+  columns:
+    type: array
+    label: Footer columns
+    cascade: true
+  count_to:
+    type: number
+    label: Count up to
+    comment: Optional. Animates the number counting up when it scrolls into view.
+    cascade: true
+  prefix:
+    type: text
+    comment: Shown before the counted number, e.g. "$".
+    cascade: true
+  suffix:
+    type: text
+    comment: Shown after the counted number, e.g. "B+".
+    cascade: true
+  disclaimer:
+    type: textarea
+    cascade: true
+  note:
+    type: textarea
+    cascade: true
+  about:
+    type: textarea
+    cascade: true
+  alt:
+    type: text
+    label: Image description
+    cascade: true
+  alt_suffix:
+    type: text
+    label: Alt text suffix
+    comment: Appended to each image description for search engines and screen readers.
+    cascade: true
+  aria_label:
+    type: text
+    label: Screen reader label
+    cascade: true
+  filters_aria_label:
+    type: text
+    label: Screen reader label for the filters
+    cascade: true
+  empty_message:
+    type: text
+    label: "\"No results\" message"
+    cascade: true
+
+# ---------------------------------------------------------------------------
+# Structures. These are the section types editors can add to a page, plus the
+# smaller repeating pieces used inside them.
+# ---------------------------------------------------------------------------
+_structures:
+  buttons:
+    style: select
+    values:
+      - label: Button
+        icon: smart_button
+        value:
+          text: Learn more
+          url: /contact.html
+          style: green
+        preview:
+          text:
+            - key: text
+          subtext:
+            - key: url
+          icon: smart_button
+        _inputs:
+          style:
+            type: select
+            label: Button style
+            options:
+              values:
+                - value: green
+                  label: Solid green
+                - value: outline
+                  label: Blue outline
+                - value: light
+                  label: White
+
+  links:
+    style: select
+    values:
+      - label: Link
+        icon: link
+        value:
+          text: ''
+          url: ''
+        preview:
+          text:
+            - key: text
+          subtext:
+            - key: url
+          icon: link
+
+  tags:
+    style: select
+    values:
+      - label: Tag
+        icon: sell
+        value: ''
+
+  metrics:
+    style: select
+    values:
+      - label: Statistic
+        icon: trending_up
+        value:
+          value: '100+'
+          label: Describe the statistic
+        preview:
+          text:
+            - key: value
+          subtext:
+            - key: label
+            
+  stats:
+    style: select
+    values:
+      - label: Statistic tile
+        icon: dashboard
+        value:
+          value: '100+'
+          label: Describe the statistic
+        preview:
+          text:
+            - key: value
+          subtext:
+            - key: label
+
+  principles:
+    style: select
+    values:
+      - label: Numbered point
+        icon: format_list_numbered
+        value:
+          heading: Point heading
+          body: A sentence or two describing this point.
+        preview:
+          text:
+            - key: heading
+
+  steps:
+    style: select
+    values:
+      - label: Step
+        icon: linear_scale
+        value:
+          heading: Step heading
+          body: A sentence describing this step.
+        preview:
+          text:
+            - key: heading
+
+  tombstones:
+    style: modal
+    values:
+      - label: Transaction tombstone
+        icon: image
+        value:
+          image: ''
+          alt: ''
+          service: sell
+          sectors: []
+          case_study: ''
+          sector_order: {}
+        preview:
+          text:
+            - key: alt
+          image:
+            - key: image
+          icon: handshake
+
+  case_studies:
+    style: modal
+    values:
+      - label: Case study
+        icon: menu_book
+        value:
+          id: new-case-study
+          market: Healthcare
+          title: Client name
+          image: ''
+          subtitle: One line summarising the engagement.
+          highlights: []
+          profile: ''
+          situation: ''
+          outcome: ''
+          quote: ''
+          cite: ''
+          bankers: ''
+        preview:
+          text:
+            - key: title
+          subtext:
+            - key: subtitle
+          image:
+            - key: image
+        _inputs:
+          id:
+            type: text
+            label: Anchor ID
+            comment: Used for the #link to this case study. Changing it breaks existing links.
+          market:
+            type: select
+            options:
+              values:
+                - Healthcare
+                - General Middle Market
+          title:
+            type: text
+          quote:
+            type: textarea
+            label: Pull quote
+            comment: Leave empty to hide the quote. Quotation marks are added automatically.
+
+  members:
+    style: modal
+    values:
+      - label: Team member
+        icon: person
+        value:
+          id: new-team-member
+          name: Full name
+          role: Job title
+          initials: ''
+          photo: ''
+          photo_alt: ''
+          links: []
+          bio: ''
+          tags: []
+        preview:
+          text:
+            - key: name
+          subtext:
+            - key: role
+          image:
+            - key: photo
+        _inputs:
+          id:
+            type: text
+            label: Anchor ID
+            comment: Used for the #link to this bio. Changing it breaks existing links.
+          name:
+            type: text
+
+  content_blocks:
+    style: modal
+    values:
+      - label: Home hero
+        icon: featured_video
+        value:
+          _name: Hero
+          eyebrow: Experience. Integrity. Results.
+          heading: A headline with *emphasis.*
+          body: One or two sentences introducing the firm.
+          buttons:
+            - text: Discuss your objectives
+              url: /contact.html
+              style: green
+          image: /assets/synergy-mark.svg
+          image_alt: ''
+        preview:
+          text:
+            - Home hero
+          subtext:
+            - key: heading
+
+      - label: Page hero
+        icon: title
+        value:
+          _name: PageHero
+          eyebrow: Section name
+          heading: A page title with *emphasis.*
+          lede: One or two sentences introducing the page.
+        preview:
+          text:
+            - Page hero
+          subtext:
+            - key: heading
+
+      - label: Statistics ribbon
+        icon: trending_up
+        value:
+          _name: MetricRibbon
+          metrics:
+            - value: '300+'
+              label: Transactions executed
+              count_to: 300
+              suffix: +
+        preview:
+          text:
+            - Statistics ribbon
+
+      - label: Scrolling client names
+        icon: view_carousel
+        value:
+          _name: ProofStrip
+          aria_label: Representative clients
+          label: Representative client relationships and engagements
+          names: []
+        preview:
+          text:
+            - Scrolling client names
+          subtext:
+            - key: label
+
+      - label: Pull quote + numbered points
+        icon: format_quote
+        value:
+          _name: QuoteAndPrinciples
+          background: alt
+          quote: A short quotation.
+          kicker: Kicker
+          heading: Section heading
+          lede: An introductory sentence.
+          principles: []
+        preview:
+          text:
+            - Pull quote + numbered points
+          subtext:
+            - key: heading
+
+      - label: Card grid
+        icon: grid_view
+        value:
+          _name: ServiceCards
+          kicker: Kicker
+          heading: Section heading
+          lede: ''
+          centered: true
+          cards:
+            - icon: '01'
+              heading: Card heading
+              body: A sentence or two describing this card.
+        preview:
+          text:
+            - Card grid
+          subtext:
+            - key: heading
+        _inputs:
+          cards:
+            type: array
+            label: Cards
+            options:
+              structures: _structures.service_cards
+
+      - label: Large sector cards
+        icon: dashboard
+        value:
+          _name: SectorCards
+          kicker: Kicker
+          heading: Section heading
+          centered: false
+          cards: []
+        preview:
+          text:
+            - Large sector cards
+          subtext:
+            - key: heading
+        _inputs:
+          cards:
+            type: array
+            label: Cards
+            options:
+              structures: _structures.sector_cards
+
+      - label: Featured transactions
+        icon: workspace_premium
+        value:
+          _name: FeaturedTransactions
+          kicker: Representative transactions
+          heading: Section heading
+          lede: ''
+          centered: true
+          alt_suffix: representative Synergy Advisors healthcare transaction
+          tombstones: []
+          buttons:
+            - text: View transaction portfolio
+              url: /transactions.html
+              style: outline
+        preview:
+          text:
+            - Featured transactions
+          subtext:
+            - key: heading
+        _inputs:
+          tombstones:
+            type: array
+            label: Tombstone images
+            options:
+              structures: _structures.featured_tombstones
+
+      - label: Three-step framework
+        icon: linear_scale
+        value:
+          _name: ProcessSteps
+          background: alt
+          kicker: Kicker
+          heading: Section heading
+          body: An introductory sentence.
+          steps: []
+        preview:
+          text:
+            - Three-step framework
+          subtext:
+            - key: heading
+        _inputs:
+          steps:
+            type: array
+            label: Steps
+            options:
+              structures: _structures.process_steps
+
+      - label: Text + statistics
+        icon: analytics
+        value:
+          _name: CopyAndStats
+          reverse: false
+          kicker: Kicker
+          heading: Section heading
+          body: A paragraph of copy.
+          stats: []
+        preview:
+          text:
+            - Text + statistics
+          subtext:
+            - key: heading
+
+      - label: Text + numbered timeline
+        icon: timeline
+        value:
+          _name: CopyAndTimeline
+          reverse: false
+          kicker: Kicker
+          heading: Section heading
+          body: A paragraph of copy.
+          steps: []
+        preview:
+          text:
+            - Text + numbered timeline
+          subtext:
+            - key: heading
+
+      - label: Text + highlight card
+        icon: vertical_split
+        value:
+          _name: CopyAndCard
+          kicker: Kicker
+          heading: Section heading
+          body: A paragraph of copy.
+          card:
+            heading: Card heading
+            body: A sentence or two.
+        preview:
+          text:
+            - Text + highlight card
+          subtext:
+            - key: heading
+
+      - label: Highlight card + text
+        icon: horizontal_split
+        value:
+          _name: CardAndCopy
+          kicker: Kicker
+          heading: Section heading
+          body: A paragraph of copy.
+          card:
+            heading: Card heading
+            body: A sentence or two.
+          buttons: []
+        preview:
+          text:
+            - Highlight card + text
+          subtext:
+            - key: heading
+
+      - label: Text + numbered points
+        icon: format_list_numbered
+        value:
+          _name: CopyAndPrinciples
+          background: alt
+          kicker: Kicker
+          heading: Section heading
+          body: A paragraph of copy.
+          principles: []
+        preview:
+          text:
+            - Text + numbered points
+          subtext:
+            - key: heading
+
+      - label: Centred heading + button
+        icon: ads_click
+        value:
+          _name: CenteredCallout
+          kicker: Kicker
+          heading: Section heading
+          lede: An introductory sentence.
+          buttons:
+            - text: Explore transactions
+              url: /transactions.html
+              style: outline
+        preview:
+          text:
+            - Centred heading + button
+          subtext:
+            - key: heading
+
+      - label: Insight cards
+        icon: lightbulb
+        value:
+          _name: InsightCards
+          cards: []
+        preview:
+          text:
+            - Insight cards
+        _inputs:
+          cards:
+            type: array
+            label: Cards
+            options:
+              structures: _structures.insight_cards
+
+      - label: Transaction explorer
+        icon: filter_alt
+        value:
+          _name: TransactionExplorer
+          filters_aria_label: Transaction tombstone filters
+          empty_message: No representative engagements match both filters.
+          disclaimer: Representative transactions are provided for informational purposes.
+        preview:
+          text:
+            - Transaction explorer
+          subtext:
+            - Filterable grid of every tombstone in Site content
+
+      - label: Case study library
+        icon: menu_book
+        value:
+          _name: CaseStudyLibrary
+          background: alt
+          kicker: Case Studies
+          heading: Section heading
+          lede: ''
+          centered: false
+        preview:
+          text:
+            - Case study library
+          subtext:
+            - Expanding list of every case study in Site content
+
+      - label: Team biographies
+        icon: groups
+        value:
+          _name: TeamBios
+          background: alt
+          kicker: Leadership
+          heading: Section heading
+          lede: ''
+          centered: false
+        preview:
+          text:
+            - Team biographies
+          subtext:
+            - Every team member in Site content
+
+      - label: Team levels
+        icon: school
+        value:
+          _name: TeamLevels
+          kicker: Kicker
+          heading: Section heading
+          lede: ''
+          centered: true
+          cards: []
+          footnote:
+            text_before: ''
+            link:
+              text: ''
+              url: ''
+            text_after: ''
+        preview:
+          text:
+            - Team levels
+          subtext:
+            - key: heading
+        _inputs:
+          cards:
+            type: array
+            label: Cards
+            options:
+              structures: _structures.level_cards
+          footnote:
+            type: object
+            label: Closing note
+            options:
+              preview:
+                icon: sticky_note_2
+
+      - label: Contact details + form
+        icon: contact_page
+        value:
+          _name: ContactDetails
+          items: []
+          map:
+            aria_label: ''
+            headline: ''
+            subline: ''
+            corner_label: ''
+          map_link:
+            text: Open directions in Google Maps
+            url: ''
+            new_tab: true
+          form:
+            labels:
+              name: Name
+              company: Company
+              email: Business email
+              phone: Phone
+              interest: Area of interest
+              message: How can we help?
+            interest_options: []
+            submit_text: Send confidential inquiry
+            note: ''
+        preview:
+          text:
+            - Contact details + form
+        _inputs:
+          items:
+            type: array
+            label: Contact details
+            options:
+              structures: _structures.contact_items
+          map:
+            type: object
+            label: Map illustration
+            options:
+              preview:
+                icon: map
+          form:
+            type: object
+            label: Enquiry form
+            options:
+              preview:
+                icon: dynamic_form
+          interest_options:
+            type: array
+            label: "\"Area of interest\" choices"
+            options:
+              structures: _structures.tags
+
+      - label: Long-form text
+        icon: article
+        value:
+          _name: RichText
+          body: ''
+        preview:
+          text:
+            - Long-form text
+          subtext:
+            - Headings, paragraphs and lists
+
+  service_cards:
+    style: select
+    values:
+      - label: Card
+        icon: article
+        value:
+          icon: '01'
+          heading: Card heading
+          body: A sentence or two describing this card.
+        preview:
+          text:
+            - key: heading
+        _inputs:
+          url:
+            type: text
+            label: Link
+            comment: Optional. Makes the whole card clickable.
+          link_text:
+            type: text
+            label: Link label
+            comment: Optional. Shown as an arrow link at the bottom of the card.
+
+  sector_cards:
+    style: select
+    values:
+      - label: Sector card
+        icon: dashboard
+        value:
+          heading: Card heading
+          body: A short paragraph.
+          tags: []
+        preview:
+          text:
+            - key: heading
+
+  insight_cards:
+    style: select
+    values:
+      - label: Insight
+        icon: lightbulb
+        value:
+          type: Category
+          heading: Insight heading
+          body: A short paragraph.
+          status: Status label
+        preview:
+          text:
+            - key: heading
+          subtext:
+            - key: type
+        _inputs:
+          type:
+            type: text
+            label: Category
+          status:
+            type: text
+            label: Status chip
+
+  level_cards:
+    style: select
+    values:
+      - label: Level
+        icon: school
+        value:
+          heading: Level heading
+          body: A short paragraph.
+        preview:
+          text:
+            - key: heading
+
+  process_steps:
+    style: select
+    values:
+      - label: Step
+        icon: linear_scale
+        value:
+          label: Challenge
+          heading: Step heading
+          body: A sentence describing this step.
+        preview:
+          text:
+            - key: heading
+          subtext:
+            - key: label
+
+  featured_tombstones:
+    style: select
+    values:
+      - label: Tombstone image
+        icon: image
+        value:
+          image: ''
+          alt: ''
+        preview:
+          text:
+            - key: alt
+          image:
+            - key: image
+
+  contact_items:
+    style: select
+    values:
+      - label: Address
+        icon: location_on
+        value:
+          label: Office
+          address: ''
+        preview:
+          text:
+            - key: label
+          icon: location_on
+        _inputs:
+          address:
+            type: textarea
+            comment: One line per line of the address.
+      - label: Link
+        icon: link
+        value:
+          label: Telephone
+          link:
+            text: ''
+            url: ''
+        preview:
+          text:
+            - key: label
+          subtext:
+            - key: link.text
+          icon: link

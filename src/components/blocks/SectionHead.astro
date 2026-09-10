@@ -1,0 +1,22 @@
+---
+import { mdInline } from "../../lib/markdown";
+
+interface Props {
+  kicker?: string;
+  heading?: string;
+  lede?: string;
+  center?: boolean;
+  prefix?: string;
+}
+
+const { kicker, heading, lede, center = false, prefix = "" } = Astro.props;
+const prop = (key: string) => `${prefix}${key}`;
+const hasContent = Boolean(kicker || heading || lede);
+---
+{hasContent && (
+  <div class={`section-head${center ? " center" : ""} reveal`}>
+    {kicker && <div class="kicker" data-editable="text" data-prop={prop("kicker")} data-type="span">{kicker}</div>}
+    {heading && <h2 data-editable="text" data-prop={prop("heading")} data-type="text" set:html={mdInline(heading)} />}
+    {lede && <p class="lede" data-editable="text" data-prop={prop("lede")} data-type="text" set:html={mdInline(lede)} />}
+  </div>
+)}

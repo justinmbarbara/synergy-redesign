@@ -1,0 +1,36 @@
+---
+import { md, mdInline } from "../../lib/markdown";
+import { team } from "../../lib/data";
+import { linkAttrs } from "../../lib/links";
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+
+const { background = "alt", section_id, kicker, heading, lede, centered = false } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
+    <div class="bio-list">
+      {team.map((member: any) => (
+        <article class="bio-card reveal" id={member.id}>
+          <div class="bio-aside">
+            {member.photo
+              ? <img class="bio-photo" src={member.photo} alt={member.photo_alt || member.name} />
+              : <div class="bio-photo" role="img" aria-label={`Portrait placeholder for ${member.name}`}>{member.initials}</div>}
+            <h3 set:html={mdInline(member.name)} />
+            <div class="role">{member.role}</div>
+            {(member.links ?? []).length > 0 && (
+              <div class="bio-links">{member.links.map((link: any) => <a {...linkAttrs(link)}>{link.text}</a>)}</div>
+            )}
+          </div>
+          <div class="bio-body">
+            <Fragment set:html={md(member.bio)} />
+            {(member.tags ?? []).length > 0 && (
+              <div class="bio-meta">{member.tags.map((tag: any) => <span>{typeof tag === "string" ? tag : tag.text}</span>)}</div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Section>

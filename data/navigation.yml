@@ -1,0 +1,23 @@
+# Header navigation. "url" accepts an internal path (/firm.html) or a full URL.
+items:
+  - text: Home
+    url: /index.html
+  - text: The Firm
+    url: /firm.html
+  - text: Capabilities
+    url: /services.html
+  - text: Sectors
+    url: /sectors.html
+  - text: Transactions
+    url: /transactions.html
+  - text: Our Team
+    url: /team.html
+  - text: Insights
+    url: /insights.html
+  - text: Contact
+    url: /contact.html
+
+# The green button at the right of the header. Individual pages can hide it.
+cta:
+  text: Start a conversation
+  url: /contact.html

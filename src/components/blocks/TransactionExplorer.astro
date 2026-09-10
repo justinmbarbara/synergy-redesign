@@ -1,0 +1,41 @@
+---
+import Section from "./Section.astro";
+import { transactionFilters } from "../../lib/data";
+import { buildTombstoneCards } from "../../lib/transactions";
+
+const {
+  background,
+  section_id,
+  filters_aria_label = "Transaction tombstone filters",
+  empty_message = "No representative engagements match both filters.",
+  disclaimer,
+} = Astro.props;
+
+const filters = transactionFilters ?? {};
+const cards = buildTombstoneCards();
+const countLabel = `${cards.length} representative engagement${cards.length === 1 ? "" : "s"}`;
+const linkText = filters.case_study_link_text ?? "View case study";
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <div class="filters reveal" aria-label={filters_aria_label}>
+      <div class="filter-group"><strong>{filters.market_group_label}</strong><button class="filter active" data-group="market" data-value="all" aria-pressed="true">{filters.all_label}</button>{(filters.markets ?? []).map((market: any) => (
+        <button class="filter" data-group="market" data-value={market.id} aria-pressed="false">{market.label}</button>
+      ))}</div>
+      <div class="filter-group"><strong>{filters.sector_group_label}</strong><button class="filter active" data-group="sector" data-value="all" aria-pressed="true">{filters.all_label}</button>{(filters.sectors ?? []).map((sector: any) => (
+        <button class="filter" data-group="sector" data-value={sector.id} data-market={sector.market} aria-pressed="false">{sector.label}</button>
+      ))}</div>
+    </div>
+    <p class="results-count" id="tombstone-count" aria-live="polite">{countLabel}</p>
+    <div class="deal-grid" id="tombstone-grid">
+      {cards.map((card) => (
+        <article class="deal-card tombstone-card" {...card.attrs}>
+          <img src={card.image} alt={card.alt} loading="lazy" />
+          <div class="tombstone-meta"><strong>{card.serviceLabel}</strong><span>{card.sectorLabel}</span>{card.caseStudy && <a href={`#${card.caseStudy}`}>{linkText}</a>}</div>
+        </article>
+      ))}
+    </div>
+    <p id="deal-empty" hidden style="margin-top:30px;text-align:center;color:var(--muted)">{empty_message}</p>
+    {disclaimer && <p style="margin-top:28px;color:var(--muted);font-size:12px">{disclaimer}</p>}
+  </div>
+</Section>

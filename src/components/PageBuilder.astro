@@ -1,0 +1,69 @@
+---
+/**
+ * Renders a page's "content_blocks" array. Each item names its component in
+ * "_name", which is also what CloudCannon uses to render new blocks in the
+ * Visual Editor (see src/scripts/register-components.js).
+ */
+import CardAndCopy from "./blocks/CardAndCopy.astro";
+import CaseStudyLibrary from "./blocks/CaseStudyLibrary.astro";
+import CenteredCallout from "./blocks/CenteredCallout.astro";
+import ContactDetails from "./blocks/ContactDetails.astro";
+import CopyAndCard from "./blocks/CopyAndCard.astro";
+import CopyAndPrinciples from "./blocks/CopyAndPrinciples.astro";
+import CopyAndStats from "./blocks/CopyAndStats.astro";
+import CopyAndTimeline from "./blocks/CopyAndTimeline.astro";
+import FeaturedTransactions from "./blocks/FeaturedTransactions.astro";
+import Hero from "./blocks/Hero.astro";
+import InsightCards from "./blocks/InsightCards.astro";
+import MetricRibbon from "./blocks/MetricRibbon.astro";
+import PageHero from "./blocks/PageHero.astro";
+import ProcessSteps from "./blocks/ProcessSteps.astro";
+import ProofStrip from "./blocks/ProofStrip.astro";
+import QuoteAndPrinciples from "./blocks/QuoteAndPrinciples.astro";
+import RichText from "./blocks/RichText.astro";
+import SectorCards from "./blocks/SectorCards.astro";
+import ServiceCards from "./blocks/ServiceCards.astro";
+import TeamBios from "./blocks/TeamBios.astro";
+import TeamLevels from "./blocks/TeamLevels.astro";
+import TransactionExplorer from "./blocks/TransactionExplorer.astro";
+
+const blockComponents: Record<string, any> = {
+  CardAndCopy,
+  CaseStudyLibrary,
+  CenteredCallout,
+  ContactDetails,
+  CopyAndCard,
+  CopyAndPrinciples,
+  CopyAndStats,
+  CopyAndTimeline,
+  FeaturedTransactions,
+  Hero,
+  InsightCards,
+  MetricRibbon,
+  PageHero,
+  ProcessSteps,
+  ProofStrip,
+  QuoteAndPrinciples,
+  RichText,
+  SectorCards,
+  ServiceCards,
+  TeamBios,
+  TeamLevels,
+  TransactionExplorer,
+};
+
+interface Props {
+  blocks?: any[];
+}
+
+const { blocks = [] } = Astro.props;
+---
+{blocks.map((block: any) => {
+  const Component = blockComponents[block?._name];
+  if (!Component) return null;
+  return (
+    <div data-editable="array-item" data-id={block._name} data-component={block._name}>
+      <Component {...block} />
+    </div>
+  );
+})}

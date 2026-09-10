@@ -1,0 +1,49 @@
+---
+import { linkAttrs } from "../../lib/links";
+import Section from "./Section.astro";
+
+const {
+  background,
+  section_id,
+  items = [],
+  map = {},
+  map_link,
+  form = {},
+} = Astro.props;
+
+const labels = form.labels ?? {};
+const options = form.interest_options ?? [];
+---
+<Section background={background} section_id={section_id}>
+  <div class="container contact-grid">
+    <div class="reveal">
+      <div class="contact-list" data-editable="array" data-prop="items">
+        {items.map((item: any) => (
+          <div class="contact-item" data-editable="array-item">
+            <small>{item.label}</small>
+            {item.address
+              ? <address>{String(item.address).split("\n").map((line: string, index: number) => (
+                  <Fragment>{index > 0 && <br />}{line}</Fragment>
+                ))}</address>
+              : <a {...linkAttrs(item.link)}>{item.link?.text}</a>}
+          </div>
+        ))}
+      </div>
+      <div class="map-art" aria-label={map.aria_label}>
+        <svg viewBox="0 0 600 300" role="img" aria-hidden="true"><rect width="600" height="300" fill="#f4f7f9"/><path d="M0 72C105 55 190 108 300 88s190-76 300-43M0 232c130-35 185 15 295-10s210-15 305 20" fill="none" stroke="#cad8e0" stroke-width="14"/><path d="M85 0v300M190 0v300M400 0v300M515 0v300" stroke="#dce5ea" stroke-width="5"/><path d="M0 150h600" stroke="#1673ba" stroke-opacity=".22" stroke-width="7"/><circle cx="365" cy="140" r="16" fill="#74b82a"/><circle cx="365" cy="140" r="29" fill="none" stroke="#74b82a" stroke-opacity=".35" stroke-width="4"/><text x="395" y="137" fill="#26313a" font-family="Arial" font-size="16" font-weight="700">{map.headline}</text><text x="395" y="158" fill="#5f6e79" font-family="Arial" font-size="13">{map.subline}</text><text x="34" y="270" fill="#7b8b96" font-family="Arial" font-size="12">{map.corner_label}</text></svg>
+      </div>
+      {map_link?.text && <div style="margin-top:16px"><a class="text-link" {...linkAttrs(map_link)}>{map_link.text}</a></div>}
+    </div>
+    <form id="contact-form" class="reveal delay-1">
+      <div class="form-grid">
+        <div class="field"><label for="name">{labels.name}</label><input id="name" name="name" autocomplete="name" required /></div>
+        <div class="field"><label for="company">{labels.company}</label><input id="company" name="company" autocomplete="organization" /></div>
+        <div class="field"><label for="email">{labels.email}</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="phone">{labels.phone}</label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
+        <div class="field full"><label for="interest">{labels.interest}</label><select id="interest" name="interest">{options.map((option: any) => <option>{typeof option === "string" ? option : option.text}</option>)}</select></div>
+        <div class="field full"><label for="message">{labels.message}</label><textarea id="message" name="message" required></textarea></div>
+        <div class="field full"><button class="btn btn-green" type="submit">{form.submit_text}</button><p class="form-note">{form.note}</p></div>
+      </div>
+    </form>
+  </div>
+</Section>

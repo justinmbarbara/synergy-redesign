@@ -1,0 +1,30 @@
+---
+import { mdInline } from "../../lib/markdown";
+import Section from "./Section.astro";
+import CopyBlock from "./CopyBlock.astro";
+
+const { background, section_id, kicker, heading, body, buttons = [], steps = [], reverse = false } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container split">
+    {reverse ? (
+      <Fragment>
+        <div class="timeline reveal" data-editable="array" data-prop="steps" data-direction="row">
+          {steps.map((step: any, index: number) => (
+            <div class="timeline-step" data-editable="array-item"><b>{index + 1}</b><h3 set:html={mdInline(step.heading)} /><p set:html={mdInline(step.body)} /></div>
+          ))}
+        </div>
+        <CopyBlock kicker={kicker} heading={heading} body={body} buttons={buttons} class="copy reveal delay-1" />
+      </Fragment>
+    ) : (
+      <Fragment>
+        <CopyBlock kicker={kicker} heading={heading} body={body} buttons={buttons} class="copy reveal" />
+        <div class="timeline reveal delay-1" data-editable="array" data-prop="steps" data-direction="row">
+          {steps.map((step: any, index: number) => (
+            <div class="timeline-step" data-editable="array-item"><b>{index + 1}</b><h3 set:html={mdInline(step.heading)} /><p set:html={mdInline(step.body)} /></div>
+          ))}
+        </div>
+      </Fragment>
+    )}
+  </div>
+</Section>

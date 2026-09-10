@@ -1,0 +1,37 @@
+---
+import { mdInline, delayClass } from "../../lib/markdown";
+import { linkAttrs } from "../../lib/links";
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+
+const {
+  background,
+  section_id,
+  kicker,
+  heading,
+  lede,
+  centered = true,
+  cards = [],
+} = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
+    <div class="service-grid" data-editable="array" data-prop="cards" data-direction="row">
+      {cards.map((card: any, index: number) => {
+        const className = `service-card reveal${delayClass(index, 3)}`;
+        const inner = (
+          <Fragment>
+            <span class="service-icon">{card.icon}</span>
+            <h3 set:html={mdInline(card.heading)} />
+            <p set:html={mdInline(card.body)} />
+            {card.link_text && <span class="text-link">{card.link_text}</span>}
+          </Fragment>
+        );
+        return card.url
+          ? <a class={className} data-editable="array-item" id={card.card_id || undefined} {...linkAttrs(card)}>{inner}</a>
+          : <article class={className} data-editable="array-item" id={card.card_id || undefined}>{inner}</article>;
+      })}
+    </div>
+  </div>
+</Section>

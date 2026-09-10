@@ -1,0 +1,78 @@
+# Global site details. Everything here is shared by every page.
+title: Synergy Advisors, LLC
+short_name: Synergy Advisors
+tagline: Experience. Integrity. Results.
+url: https://synergyadvisorsllc.com
+
+logo:
+  image: /assets/synergy-logo.png
+  image_light: /assets/synergy-logo-white.png
+  alt: Synergy Advisors, LLC
+  home_aria_label: Synergy Advisors, LLC home
+
+contact:
+  phone_display: '+1 310 414 3200'
+  phone_link: 'tel:+13104143200'
+  phone_e164: '+1-310-414-3200'
+  email: info@synergyadvisorsllc.com
+  street_address: 880 Apollo Street, Suite 230
+  locality: El Segundo
+  region: CA
+  postal_code: '90245'
+  country: US
+  map_url: https://maps.google.com/?q=880+Apollo+Street+Suite+230+El+Segundo+CA+90245
+
+regulatory:
+  brokercheck_url: https://brokercheck.finra.org/firm/summary/128264
+  finra_url: https://www.finra.org/
+  sipc_url: https://www.sipc.org/list-of-members
+
+topbar:
+  note: Healthcare M&A Advisory Firm
+  # Shown on standard pages.
+  links:
+    - text: '+1 310 414 3200'
+      url: 'tel:+13104143200'
+    - text: FINRA BrokerCheck
+      url: https://brokercheck.finra.org/firm/summary/128264
+      new_tab: true
+    - text: Member SIPC
+      url: https://www.sipc.org/list-of-members
+      new_tab: true
+  # Shown on pages whose "Top bar" layout option is set to "Regulatory only"
+  # (the Privacy and Terms pages).
+  regulatory_links:
+    - text: FINRA BrokerCheck
+      url: https://brokercheck.finra.org/firm/summary/128264
+      new_tab: true
+    - text: Member SIPC
+      url: https://www.sipc.org/list-of-members
+      new_tab: true
+
+seo:
+  description: Synergy Advisors is a senior-led middle-market investment bank in Los Angeles advising healthcare companies, founders, and families on M&A, capital raising, and strategic transactions.
+  og_image: /assets/og-image.png
+  og_image_width: '1200'
+  og_image_height: '630'
+  og_image_alt: Synergy Advisors, LLC — strategic advisory and M&A for the healthcare industry
+  og_site_name: Synergy Advisors, LLC
+  twitter_card: summary_large_image
+  robots: index,follow
+
+# Rendered as JSON-LD structured data in the <head> of the home page.
+structured_data:
+  slogan: Experience. Integrity. Results.
+  description: Independent senior-led middle-market investment bank providing M&A, capital raising, and strategic advisory services to healthcare and middle-market companies.
+  logo: /assets/synergy-logo.png
+  knows_about:
+    - Healthcare M&A
+    - Mergers and Acquisitions
+    - Capital Raising
+    - Strategic Advisory
+    - Recapitalizations
+    - Fairness Opinions
+  member_of:
+    - FINRA
+    - SIPC
+  same_as:
+    - https://brokercheck.finra.org/firm/summary/128264

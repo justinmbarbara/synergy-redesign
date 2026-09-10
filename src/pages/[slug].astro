@@ -1,0 +1,23 @@
+---
+/**
+ * One route per file in src/content/pages. Astro is configured with
+ * build.format: "file", so "firm" is written to /firm.html and "index" to
+ * /index.html - the same URLs the original static site used. A page added in
+ * CloudCannon gets its URL automatically.
+ */
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageBuilder from "../components/PageBuilder.astro";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+  return pages.map((page) => ({ params: { slug: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const data = page.data as Record<string, any>;
+const pageUrl = `/${page.id}.html`;
+---
+<BaseLayout seo={data.seo} layout={data.layout} cta_band={data.cta_band} pageUrl={pageUrl}>
+  <PageBuilder blocks={data.content_blocks} />
+</BaseLayout>

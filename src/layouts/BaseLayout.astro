@@ -1,0 +1,49 @@
+---
+import Seo from "../components/Seo.astro";
+import Topbar from "../components/Topbar.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import CtaBand from "../components/CtaBand.astro";
+
+interface Props {
+  seo?: Record<string, any>;
+  layout?: Record<string, any>;
+  cta_band?: Record<string, any>;
+  pageUrl?: string;
+}
+
+const { seo = {}, layout = {}, cta_band = {}, pageUrl = "" } = Astro.props;
+
+const topbarVariant = layout.topbar === "regulatory" ? "regulatory" : "full";
+const footerVariant = layout.footer === "minimal" ? "minimal" : "full";
+const showCta = layout.show_header_button !== false;
+const showCtaBand = cta_band?.enabled !== false && Boolean(cta_band?.heading);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <Seo seo={seo} pageUrl={pageUrl} />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<Topbar variant={topbarVariant} />
+<SiteHeader activeUrl={pageUrl} showCta={showCta} />
+
+<main id="main" data-editable="array" data-prop="content_blocks" data-id-key="_name" data-component-key="_name">
+  <slot />
+</main>
+
+{showCtaBand && <CtaBand heading={cta_band.heading} button={cta_band.button} />}
+<SiteFooter variant={footerVariant} copyrightSuffix={layout.copyright_suffix} />
+<script src="/site.js" is:inline></script>
+<script>
+  // Only loaded inside CloudCannon's Visual Editor, so it can live re-render
+  // components as they are edited.
+  if ((window as any).inEditorMode) {
+    import("../scripts/register-components.js").catch((error) => {
+      console.warn("Failed to load CloudCannon component registration:", error);
+    });
+  }
+</script>
+</body>
+</html>

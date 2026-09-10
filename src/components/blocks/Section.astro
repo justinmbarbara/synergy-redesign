@@ -1,0 +1,8 @@
+---
+interface Props {
+  background?: string;
+  section_id?: string;
+}
+const { background, section_id } = Astro.props;
+---
+<section class={background === "alt" ? "section-alt" : undefined} id={section_id || undefined}><slot /></section>

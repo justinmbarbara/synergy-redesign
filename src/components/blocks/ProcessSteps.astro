@@ -1,0 +1,26 @@
+---
+import { mdInline } from "../../lib/markdown";
+import Section from "./Section.astro";
+
+const { background = "alt", section_id, kicker, heading, body, steps = [] } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <div class="case-study reveal">
+      <div class="case-study-title">
+        {kicker && <div class="kicker" style="color:#fff" data-editable="text" data-prop="kicker" data-type="span">{kicker}</div>}
+        <h2 data-editable="text" data-prop="heading" data-type="text" set:html={mdInline(heading)} />
+        {body && <p data-editable="text" data-prop="body" data-type="text" set:html={mdInline(body)} />}
+      </div>
+      <div class="case-study-body" data-editable="array" data-prop="steps" data-direction="row">
+        {steps.map((step: any) => (
+          <div class="case-step" data-editable="array-item">
+            <strong>{step.label}</strong>
+            <h3 set:html={mdInline(step.heading)} />
+            <p set:html={mdInline(step.body)} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Section>

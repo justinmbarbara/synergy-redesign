@@ -1,0 +1,23 @@
+---
+import { mdInline } from "../../lib/markdown";
+import { linkAttrs } from "../../lib/links";
+
+const { eyebrow, heading, body, buttons = [], image, image_alt = "" } = Astro.props;
+const styleClass = (style?: string) =>
+  style === "outline" ? "btn btn-outline" : style === "light" ? "btn btn-light" : "btn btn-green";
+---
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow reveal" data-editable="text" data-prop="eyebrow" data-type="span">{eyebrow}</div>
+      <h1 class="reveal delay-1" data-editable="text" data-prop="heading" data-type="text" set:html={mdInline(heading)} />
+      <p class="hero-copy reveal delay-2" data-editable="text" data-prop="body" data-type="text" set:html={mdInline(body)} />
+      {buttons.length > 0 && (
+        <div class="hero-actions reveal delay-3">{buttons.map((button: any) => <a class={styleClass(button.style)} {...linkAttrs(button)}>{button.text}</a>)}</div>
+      )}
+    </div>
+    <div class="hero-visual reveal delay-2" aria-hidden={image_alt ? undefined : "true"}>
+      <img class="synergy-ribbon" data-editable="image" data-prop-src="image" src={image} alt={image_alt} />
+    </div>
+  </div>
+</section>

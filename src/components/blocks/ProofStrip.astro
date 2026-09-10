@@ -1,0 +1,16 @@
+---
+const { label, aria_label = "Representative clients", names = [] } = Astro.props;
+---
+<div class="proof-strip" aria-label={aria_label}>
+  <div class="proof-label" data-editable="text" data-prop="label" data-type="span">{label}</div>
+  <div class="logo-marquee">
+    <div class="logo-track">
+      <div class="logo-sequence">
+        {names.map((name: any) => <span class="logo-word">{typeof name === "string" ? name : name.text}</span>)}
+      </div>
+      <div class="logo-sequence" aria-hidden="true">
+        {names.map((name: any) => <span class="logo-word">{typeof name === "string" ? name : name.text}</span>)}
+      </div>
+    </div>
+  </div>
+</div>

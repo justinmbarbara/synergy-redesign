@@ -1,0 +1,48 @@
+# Filter chips and labels used on the Transactions page.
+# "id" values are referenced by data/tombstones.yml - rename labels freely,
+# but only change an id if you also update every tombstone that uses it.
+service_labels:
+  - id: sell
+    label: Sell-Side M&A
+  - id: buy
+    label: Buy-Side M&A
+  - id: capital
+    label: Capital Raising
+  - id: strategic
+    label: Strategic Advisory
+# "all_label" is the text on the leading "All" chip in each filter group.
+all_label: All
+# "View case study" link text on a tombstone.
+case_study_link_text: View case study
+market_group_label: Market
+sector_group_label: Sector
+markets:
+  - id: healthcare
+    label: Healthcare
+    # Used inside the image alt text, e.g. "... healthcare investment banking transaction".
+    alt_label: healthcare
+  - id: general
+    label: General Middle Market
+    alt_label: general middle-market
+sectors:
+  - id: payors
+    label: Payors & Payor Solutions
+    market: healthcare
+  - id: providers
+    label: Providers & Provider Solutions
+    market: healthcare
+  - id: government
+    label: Government Sponsored Programs
+    market: healthcare
+  - id: medlife
+    label: Medical Products / Life Sciences
+    market: healthcare
+  - id: consumer
+    label: Consumer / Retail
+    market: general
+  - id: bizit
+    label: Business Process / IT Services
+    market: general
+  - id: segments
+    label: Additional Targeted Segments
+    market: general

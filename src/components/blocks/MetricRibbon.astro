@@ -1,0 +1,17 @@
+---
+import { delayClass } from "../../lib/markdown";
+
+const { metrics = [] } = Astro.props;
+---
+<div class="metric-ribbon"><div class="container metrics">
+  {metrics.map((metric: any, index: number) => (
+    <div class={`metric reveal${delayClass(index, 3)}`}>
+      <strong
+        data-count={metric.count_to ? String(metric.count_to) : undefined}
+        data-prefix={metric.count_to && metric.prefix ? metric.prefix : undefined}
+        data-suffix={metric.count_to && metric.suffix ? metric.suffix : undefined}
+      >{metric.value}</strong>
+      <span>{metric.label}</span>
+    </div>
+  ))}
+</div></div>

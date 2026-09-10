@@ -1,0 +1,20 @@
+---
+import { mdInline } from "../../lib/markdown";
+import Section from "./Section.astro";
+import CopyBlock from "./CopyBlock.astro";
+
+const { background, section_id, kicker, heading, body, buttons = [], principles = [] } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container split">
+    <CopyBlock kicker={kicker} heading={heading} body={body} buttons={buttons} class="copy reveal" />
+    <div class="principles reveal delay-1" data-editable="array" data-prop="principles">
+      {principles.map((item: any, index: number) => (
+        <div class="principle" data-editable="array-item">
+          <span class="principle-num">{index + 1}</span>
+          <div><h3 set:html={mdInline(item.heading)} /><p set:html={mdInline(item.body)} /></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Section>

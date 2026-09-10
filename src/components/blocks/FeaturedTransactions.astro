@@ -1,0 +1,30 @@
+---
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+import Buttons from "./Buttons.astro";
+
+const {
+  background,
+  section_id,
+  kicker,
+  heading,
+  lede,
+  centered = true,
+  alt_suffix = "representative Synergy Advisors healthcare transaction",
+  tombstones = [],
+  buttons = [],
+} = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
+    <div class="deal-grid" data-editable="array" data-prop="tombstones" data-direction="row">
+      {tombstones.map((item: any) => (
+        <article class="deal-card tombstone-card" data-editable="array-item">
+          <img data-editable="image" data-prop-src="image" src={item.image} alt={`${item.alt} - ${alt_suffix}`} loading="lazy" />
+        </article>
+      ))}
+    </div>
+    <Buttons buttons={buttons} style="margin-top:34px;text-align:center" />
+  </div>
+</Section>

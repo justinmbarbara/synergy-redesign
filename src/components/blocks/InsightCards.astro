@@ -1,0 +1,22 @@
+---
+import { mdInline, delayClass } from "../../lib/markdown";
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+
+const { background, section_id, kicker, heading, lede, centered = true, cards = [] } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
+    <div class="insight-grid" data-editable="array" data-prop="cards" data-direction="row">
+      {cards.map((card: any, index: number) => (
+        <article class={`insight-card reveal${delayClass(index, 3)}`} data-editable="array-item">
+          <span class="insight-type">{card.type}</span>
+          <h3 set:html={mdInline(card.heading)} />
+          <p set:html={mdInline(card.body)} />
+          {card.status && <span class="insight-status">{card.status}</span>}
+        </article>
+      ))}
+    </div>
+  </div>
+</Section>

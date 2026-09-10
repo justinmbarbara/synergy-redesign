@@ -1,0 +1,12 @@
+---
+interface Props {
+  stats?: any[];
+  class?: string;
+}
+const { stats = [], class: className = "stats-panel reveal" } = Astro.props;
+---
+<div class={className} data-editable="array" data-prop="stats" data-direction="row">
+  {stats.map((stat: any) => (
+    <div class="stat-tile" data-editable="array-item"><strong>{stat.value}</strong><span>{stat.label}</span></div>
+  ))}
+</div>

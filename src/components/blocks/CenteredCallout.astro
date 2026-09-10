@@ -1,0 +1,13 @@
+---
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+import Buttons from "./Buttons.astro";
+
+const { background, section_id, kicker, heading, lede, buttons = [] } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={true} />
+    <Buttons buttons={buttons} style="text-align:center" />
+  </div>
+</Section>

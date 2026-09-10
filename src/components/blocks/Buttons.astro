@@ -1,0 +1,17 @@
+---
+import { linkAttrs } from "../../lib/links";
+
+interface Props {
+  buttons?: any[];
+  /** Inline style copied from the original markup so spacing is unchanged. */
+  style?: string;
+  class?: string;
+}
+
+const { buttons = [], style, class: className } = Astro.props;
+const styleClass = (buttonStyle?: string) =>
+  buttonStyle === "outline" ? "btn btn-outline" : buttonStyle === "light" ? "btn btn-light" : "btn btn-green";
+---
+{buttons.length > 0 && (
+  <div class={className} style={style}>{buttons.map((button: any) => <a class={styleClass(button.style)} {...linkAttrs(button)}>{button.text}</a>)}</div>
+)}

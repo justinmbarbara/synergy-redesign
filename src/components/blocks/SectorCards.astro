@@ -1,0 +1,30 @@
+---
+import { mdInline } from "../../lib/markdown";
+import { linkAttrs } from "../../lib/links";
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+
+const { background, section_id, kicker, heading, lede, centered = false, cards = [] } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
+    <div class="sector-grid" data-editable="array" data-prop="cards" data-direction="row">
+      {cards.map((card: any, index: number) => {
+        const className = `sector-card${card.style === "secondary" ? " secondary" : ""} reveal${index === 0 ? "" : ` delay-${index}`}`;
+        const inner = (
+          <Fragment>
+            <h3 set:html={mdInline(card.heading)} />
+            <p set:html={mdInline(card.body)} />
+            {(card.tags ?? []).length > 0 && (
+              <div class="tag-list">{card.tags.map((tag: any) => <span class="tag">{typeof tag === "string" ? tag : tag.text}</span>)}</div>
+            )}
+          </Fragment>
+        );
+        return card.url
+          ? <a class={className} data-editable="array-item" {...linkAttrs(card)}>{inner}</a>
+          : <div class={className} data-editable="array-item">{inner}</div>;
+      })}
+    </div>
+  </div>
+</Section>

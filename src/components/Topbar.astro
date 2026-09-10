@@ -1,0 +1,13 @@
+---
+import { site } from "../lib/data";
+import { linkAttrs } from "../lib/links";
+
+interface Props {
+  variant?: "full" | "regulatory";
+}
+
+const { variant = "full" } = Astro.props;
+const topbar = site.topbar ?? {};
+const links = (variant === "regulatory" ? topbar.regulatory_links : topbar.links) ?? [];
+---
+<div class="topbar"><div class="container"><span class="topbar-note">{topbar.note}</span><div class="topbar-links">{links.map((link: any) => <a {...linkAttrs(link)}>{link.text}</a>)}</div></div></div>

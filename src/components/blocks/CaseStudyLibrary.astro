@@ -1,0 +1,45 @@
+---
+import { mdInline } from "../../lib/markdown";
+import { caseStudies } from "../../lib/data";
+import Section from "./Section.astro";
+import SectionHead from "./SectionHead.astro";
+
+const {
+  background = "alt",
+  section_id,
+  kicker,
+  heading,
+  lede,
+  centered = false,
+  profile_label = "Client Profile",
+  situation_label = "Situation & Approach",
+  outcome_label = "Outcome",
+  bankers_label = "Lead bankers:",
+} = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container">
+    <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
+    <div class="case-library" id="case-library">
+      {caseStudies.map((item: any) => (
+        <details class="case-entry" id={item.id}>
+          <summary>
+            <img class="case-thumb" src={item.image} alt="" loading="lazy" />
+            <div class="case-summary"><small>{item.market}</small><h3 set:html={mdInline(item.title)} /><p set:html={mdInline(item.subtitle)} /></div>
+            <span class="case-toggle" aria-hidden="true">+</span>
+          </summary>
+          <div class="case-content">
+            <div class="case-highlights">{(item.highlights ?? []).map((value: any) => <span>{typeof value === "string" ? value : value.text}</span>)}</div>
+            <div class="case-columns">
+              <div class="case-column"><h4>{profile_label}</h4><p set:html={mdInline(item.profile)} /></div>
+              <div class="case-column"><h4>{situation_label}</h4><p set:html={mdInline(item.situation)} /></div>
+              <div class="case-column"><h4>{outcome_label}</h4><p set:html={mdInline(item.outcome)} /></div>
+            </div>
+            {item.quote && <blockquote class="case-quote">&#8220;<Fragment set:html={mdInline(item.quote)} />&#8221;<cite>{item.cite}</cite></blockquote>}
+            <p class="case-bankers"><strong>{bankers_label}</strong> {item.bankers}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</Section>

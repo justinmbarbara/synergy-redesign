@@ -1,0 +1,26 @@
+{
+  "name": "synergy-advisors",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@cloudcannon/editable-regions": "^0.0.19",
+    "@rollup/plugin-yaml": "^5.0.0",
+    "astro": "^7.3.2",
+    "marked": "^16.4.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
+  }
+}

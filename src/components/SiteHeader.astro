@@ -1,0 +1,29 @@
+---
+import { site, navigation } from "../lib/data";
+import { linkAttrs } from "../lib/links";
+
+interface Props {
+  activeUrl?: string;
+  showCta?: boolean;
+}
+
+const { activeUrl = "", showCta = true } = Astro.props;
+const logo = site.logo ?? {};
+const items = navigation.items ?? [];
+const cta = navigation.cta ?? {};
+
+// "/index.html" is also reached as "/", so treat both as the home page.
+const isActive = (url: string) => {
+  if (!url || !activeUrl) return false;
+  const normalise = (value: string) => (value === "/" ? "/index.html" : value);
+  return normalise(url) === normalise(activeUrl);
+};
+---
+<header class="site-header">
+  <div class="container nav-shell">
+    <a class="brand" href="/index.html" aria-label={logo.home_aria_label}><img class="brand-logo" src={logo.image} alt={logo.alt} /></a>
+    <nav class="primary-nav" aria-label="Primary navigation">{items.map((item: any) => <a class={isActive(item.url) ? "active" : undefined} {...linkAttrs(item)}>{item.text}</a>)}</nav>
+    {showCta && cta.text && <a class="btn btn-green nav-cta" {...linkAttrs(cta)}>{cta.text}</a>}
+    <button class="menu-button" type="button" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button>
+  </div>
+</header>

@@ -1,0 +1,29 @@
+---
+import { mdInline } from "../../lib/markdown";
+import Section from "./Section.astro";
+
+const { background = "alt", section_id, quote, kicker, heading, lede, principles = [] } = Astro.props;
+---
+<Section background={background} section_id={section_id}>
+  <div class="container senior-led">
+    {quote && <blockquote class="senior-quote reveal" data-editable="text" data-prop="quote" data-type="text">&#8220;<Fragment set:html={mdInline(quote)} />&#8221;</blockquote>}
+    <div>
+      {kicker && <div class="kicker reveal" data-editable="text" data-prop="kicker" data-type="span">{kicker}</div>}
+      {heading && <h2 class="reveal delay-1" data-editable="text" data-prop="heading" data-type="text" set:html={mdInline(heading)} />}
+      {lede && <p class="lede reveal delay-2" data-editable="text" data-prop="lede" data-type="text" set:html={mdInline(lede)} />}
+      {principles.length > 0 && (
+        <div class="principles" style="margin-top:28px" data-editable="array" data-prop="principles">
+          {principles.map((item: any, index: number) => (
+            <div class={`principle reveal${index === 0 ? "" : ` delay-${index}`}`} data-editable="array-item">
+              <span class="principle-num">{index + 1}</span>
+              <div>
+                <h3>{item.heading}</h3>
+                <p set:html={mdInline(item.body)} />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</Section>

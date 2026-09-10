@@ -1,0 +1,61 @@
+# Site footer. Legal pages use a cut-down footer that only shows the bottom
+# bar; that is controlled per page under "Layout options".
+about: Independent M&A, capital raising, and strategic advisory for healthcare and middle-market companies.
+
+columns:
+  - heading: Firm
+    links:
+      - text: About Synergy
+        url: /firm.html
+      - text: Our Team
+        url: /team.html
+      - text: Insights
+        url: /insights.html
+  - heading: Expertise
+    links:
+      - text: Capabilities
+        url: /services.html
+      - text: Sectors
+        url: /sectors.html
+      - text: Transactions
+        url: /transactions.html
+  - heading: Contact
+    links:
+      - text: '+1 310 414 3200'
+        url: 'tel:+13104143200'
+      - text: info@synergyadvisorsllc.com
+        url: 'mailto:info@synergyadvisorsllc.com'
+      - text: El Segundo office
+        url: /contact.html
+
+# Bottom bar. The current year is inserted automatically before the copyright.
+copyright: Synergy Advisors, LLC.
+
+# Rendered as "Member FINRA / SIPC" at the right of the bottom bar.
+membership_prefix: Member
+membership_links:
+  - text: FINRA
+    url: https://www.finra.org/
+    new_tab: true
+  - text: SIPC
+    url: https://www.sipc.org/list-of-members
+    new_tab: true
+
+# Rendered after the membership links, separated by spaces.
+legal_links:
+  - text: BrokerCheck
+    url: https://brokercheck.finra.org/firm/summary/128264
+    new_tab: true
+  - text: Privacy
+    url: /privacy.html
+  - text: Terms
+    url: /terms.html
+
+# Shown in place of the membership and legal links on the cut-down footer.
+minimal_links:
+  - text: Privacy
+    url: /privacy.html
+  - text: Terms
+    url: /terms.html
+  - text: Contact
+    url: /contact.html

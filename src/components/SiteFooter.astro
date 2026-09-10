@@ -1,0 +1,50 @@
+---
+import { site, footer } from "../lib/data";
+import { linkAttrs } from "../lib/links";
+
+interface Props {
+  variant?: "full" | "minimal";
+  copyrightSuffix?: string;
+}
+
+const { variant = "full", copyrightSuffix = "" } = Astro.props;
+const logo = site.logo ?? {};
+const columns = footer.columns ?? [];
+const membership = footer.membership_links ?? [];
+const legal = footer.legal_links ?? [];
+const minimal = footer.minimal_links ?? [];
+const SEP = " ";
+---
+<footer>
+  {variant === "full" && (
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="/index.html" aria-label={logo.home_aria_label}><img class="brand-logo brand-logo--light" src={logo.image_light} alt={logo.alt} /></a>
+        <p class="footer-about">{footer.about}</p>
+      </div>
+      {columns.map((column: any) => (
+        <div>
+          <h3>{column.heading}</h3>
+          {(column.links ?? []).map((link: any) => <a {...linkAttrs(link)}>{link.text}</a>)}
+        </div>
+      ))}
+    </div>
+  )}
+  <div class="footer-bottom"><div class="container"><span>&copy; <span data-year></span> {footer.copyright}{copyrightSuffix ? ` ${copyrightSuffix}` : ""}</span><span>{variant === "full" ? (
+    <Fragment>
+      {footer.membership_prefix}{" "}
+      {membership.map((link: any, index: number) => (
+        <Fragment>{index > 0 ? " / " : ""}<a {...linkAttrs(link)}>{link.text}</a></Fragment>
+      ))}
+      {legal.map((link: any) => (
+        <Fragment>{` ${SEP} `}<a {...linkAttrs(link)}>{link.text}</a></Fragment>
+      ))}
+    </Fragment>
+  ) : (
+    <Fragment>
+      {minimal.map((link: any, index: number) => (
+        <Fragment>{index > 0 ? ` ${SEP} ` : ""}<a {...linkAttrs(link)}>{link.text}</a></Fragment>
+      ))}
+    </Fragment>
+  )}</span></div></div>
+</footer>

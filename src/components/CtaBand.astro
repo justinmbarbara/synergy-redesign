@@ -1,0 +1,11 @@
+---
+import { linkAttrs } from "../lib/links";
+
+interface Props {
+  heading?: string;
+  button?: { text?: string; url?: string; new_tab?: boolean };
+}
+
+const { heading, button } = Astro.props;
+---
+<div class="cta-band"><div class="container cta-inner"><h2 data-editable="text" data-prop="cta_band.heading" data-type="span">{heading}</h2>{button?.text && <a class="btn btn-green" {...linkAttrs(button)}>{button.text}</a>}</div></div>

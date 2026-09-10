@@ -1,0 +1,21 @@
+---
+import { md, mdInline } from "../../lib/markdown";
+import Buttons from "./Buttons.astro";
+
+interface Props {
+  kicker?: string;
+  heading?: string;
+  body?: string;
+  buttons?: any[];
+  class?: string;
+  buttons_style?: string;
+}
+
+const { kicker, heading, body, buttons = [], class: className = "copy reveal", buttons_style = "margin-top:28px" } = Astro.props;
+---
+<div class={className}>
+  {kicker && <div class="kicker" data-editable="text" data-prop="kicker" data-type="span">{kicker}</div>}
+  {heading && <h2 data-editable="text" data-prop="heading" data-type="text" set:html={mdInline(heading)} />}
+  {body && <Fragment set:html={md(body)} />}
+  <Buttons buttons={buttons} style={buttons_style} />
+</div>

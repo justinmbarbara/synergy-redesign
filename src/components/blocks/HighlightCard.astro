@@ -1,0 +1,18 @@
+---
+import { mdInline } from "../../lib/markdown";
+
+interface Props {
+  card?: any;
+  class?: string;
+  prefix?: string;
+}
+const { card = {}, class: className = "sector-card reveal", prefix = "card." } = Astro.props;
+const styled = `${className.split(" ")[0]}${card.style === "secondary" ? " secondary" : ""} ${className.split(" ").slice(1).join(" ")}`.trim();
+---
+<div class={styled}>
+  <h3 data-editable="text" data-prop={`${prefix}heading`} data-type="text" set:html={mdInline(card.heading)} />
+  <p data-editable="text" data-prop={`${prefix}body`} data-type="text" set:html={mdInline(card.body)} />
+  {(card.tags ?? []).length > 0 && (
+    <div class="tag-list">{card.tags.map((tag: any) => <span class="tag">{typeof tag === "string" ? tag : tag.text}</span>)}</div>
+  )}
+</div>
