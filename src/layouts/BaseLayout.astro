@@ -43,6 +43,8 @@ const showCtaBand = cta_band?.enabled !== false && Boolean(cta_band?.heading);
     import("../scripts/register-components.js").catch((error) => {
       console.warn("Failed to load CloudCannon component registration:", error);
     });
+    // Temporary: reports which data-file reference CloudCannon resolves.
+    import("../scripts/diagnose-editable-data.js").catch(() => {});
   }
 </script>
 </body>

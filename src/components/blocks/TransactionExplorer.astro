@@ -9,9 +9,8 @@
  * The ".tombstones" suffix is the file's only top-level key, which holds the
  * array itself.
  *
- * Each card is an Array Item naming the registered "tombstone" component, so
- * CloudCannon can render a tombstone added in the Visual Editor without a
- * rebuild.
+ * Treated as a simple array while the parent binding is being proved: no
+ * data-component / data-id-key, and no nested regions inside the cards.
  */
 import Section from "./Section.astro";
 import TombstoneCard from "./TombstoneCard.astro";
@@ -39,7 +38,7 @@ const countLabel = `${tombstones.length} representative engagement${tombstones.l
       ))}</div>
     </div>
     <p class="results-count" id="tombstone-count" aria-live="polite">{countLabel}</p>
-    <div class="deal-grid" id="tombstone-grid" data-editable="array" data-prop="@file[/data/tombstones.yml].tombstones" data-component="tombstone" data-direction="row">
+    <div class="deal-grid" id="tombstone-grid" data-editable="array" data-prop="@file[/data/tombstones.yml].tombstones" data-direction="row">
       {tombstones.map((item: any, index: number) => <TombstoneCard {...item} index={index} />)}
     </div>
     <p id="deal-empty" hidden style="margin-top:30px;text-align:center;color:var(--muted)">{empty_message}</p>

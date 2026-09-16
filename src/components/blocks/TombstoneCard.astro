@@ -7,7 +7,10 @@
  * renders this component on its own, client side, when an editor adds or
  * reorders a tombstone, so it cannot depend on anything the parent computed.
  *
- * Registered with CloudCannon as "tombstone" in src/scripts/register-components.js.
+ * Kept deliberately plain for now: the tombstone array is being proved as a
+ * simple Array Editable Region, so this renders no nested Image or Text
+ * regions and names no registered component. Both can be layered back on once
+ * the parent array resolves.
  */
 import { transactionFilters } from "../../lib/data";
 import { buildTombstoneCard } from "../../lib/transactions";
@@ -28,7 +31,7 @@ const { index, ...item } = Astro.props;
 const card = buildTombstoneCard(item, index);
 const linkText = transactionFilters?.case_study_link_text ?? "View case study";
 ---
-<article class="deal-card tombstone-card" data-editable="array-item" data-component="tombstone" {...card.attrs}>
-  <img data-editable="image" data-prop-src="image" src={card.image} alt={card.alt} loading="lazy" />
+<article class="deal-card tombstone-card" data-editable="array-item" {...card.attrs}>
+  <img src={card.image} alt={card.alt} loading="lazy" />
   <div class="tombstone-meta"><strong>{card.serviceLabel}</strong><span>{card.sectorLabel}</span>{card.caseStudy && <a href={`#${card.caseStudy}`}>{linkText}</a>}</div>
 </article>
