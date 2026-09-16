@@ -112,10 +112,11 @@ collections_config:
     _enabled_editors:
       - data
 
-# Lets Select inputs pull their choices straight from the data files.
+# Lets Select inputs pull their choices straight from the data files. This key
+# is only for populating Select and Multiselect Inputs - it does not register a
+# Visual Editor dataset, so Editable Regions address data files by path with
+# "@file[...]" instead.
 data_config:
-  tombstones:
-    path: data/tombstones.yml
   site:
     path: data/site.yml
   navigation:

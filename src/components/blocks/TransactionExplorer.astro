@@ -2,9 +2,16 @@
 /**
  * The filterable transaction grid. Every card comes from data/tombstones.yml.
  *
- * The grid is an Array Editable Region and each card is an Array Item, both
- * pointing at the registered "tombstone" component, so CloudCannon can render
- * a tombstone that was added in the Visual Editor without a rebuild.
+ * The grid is an Array Editable Region. Its data-prop addresses the data file
+ * by path - "@file[...]" resolves through CloudCannon.file(), which needs no
+ * registry entry, unlike "@data[...]" which relies on a Visual Editor dataset.
+ * ("data_config" only feeds Select Inputs, so it does not register one.)
+ * The ".tombstones" suffix is the file's only top-level key, which holds the
+ * array itself.
+ *
+ * Each card is an Array Item naming the registered "tombstone" component, so
+ * CloudCannon can render a tombstone added in the Visual Editor without a
+ * rebuild.
  */
 import Section from "./Section.astro";
 import TombstoneCard from "./TombstoneCard.astro";
@@ -32,7 +39,7 @@ const countLabel = `${tombstones.length} representative engagement${tombstones.l
       ))}</div>
     </div>
     <p class="results-count" id="tombstone-count" aria-live="polite">{countLabel}</p>
-    <div class="deal-grid" id="tombstone-grid" data-editable="array" data-prop="@data[tombstones].tombstones" data-component="tombstone" data-direction="row">
+    <div class="deal-grid" id="tombstone-grid" data-editable="array" data-prop="@file[/data/tombstones.yml].tombstones" data-component="tombstone" data-direction="row">
       {tombstones.map((item: any, index: number) => <TombstoneCard {...item} index={index} />)}
     </div>
     <p id="deal-empty" hidden style="margin-top:30px;text-align:center;color:var(--muted)">{empty_message}</p>
