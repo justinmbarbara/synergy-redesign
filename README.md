@@ -22,7 +22,7 @@ data/                    Shared content, edited in CloudCannon under "Site conte
   site.yml               Company details, logos, top bar, SEO defaults
   navigation.yml         Header navigation and the header button
   footer.yml             Footer columns and the legal bar
-  tombstones.yml         Every transaction tombstone
+  tombstones.yml         Every transaction tombstone (Transactions + homepage)
   transaction-filters.yml Market/sector/service labels used by the filters
   case-studies.yml       Case studies on the Transactions page
   team.yml               Team member biographies
@@ -67,14 +67,30 @@ Adding a new section type means three things:
 
 ### Transactions
 
-`data/tombstones.yml` holds all the tombstones in the order they appear when no
-filter is applied. Each entry lists the sectors it belongs to; the market filter
-follows from those. `sector_order` is an advanced, hidden field that pins a
-tombstone's position inside a single sector filter — new tombstones without it
-appear at the end of that sector's list.
+`data/tombstones.yml` is the single source of truth for transaction data. Both
+the Transactions page and the homepage's featured grid read from it, so a
+transaction is never described in two places.
+
+Each entry lists the sectors it belongs to; the Healthcare / General Middle
+Market filter follows from those, as does the transaction's market label.
+
+There are two independent ordering concepts:
+
+- **List order** — the order of the array. This is what visitors see on the
+  Transactions page with no sector filter selected, and it is the tie-breaker
+  everywhere else. Editors drag items in CloudCannon to change it.
+- **`sector_order`** — an optional per-sector position that preserves the
+  hand-curated ordering inside a single sector filter, which differs from list
+  order for four of the seven sectors. A tombstone with no entry for a sector
+  appears at the end of that sector's list, so it can be left alone.
+
+`featured` adds a transaction to the homepage grid and `featured_order` sets its
+position there (lowest first, unnumbered last). The homepage block's "Maximum to
+show" caps how many appear.
 
 The whole grid is rendered at build time, so the tombstones are in the HTML for
-search engines. `public/site.js` only handles filtering and sorting.
+search engines. `public/site.js` only handles filtering and sorting — adding a
+transaction never requires a code change.
 
 ## CloudCannon
 

@@ -9,6 +9,12 @@ export interface TombstoneCard {
   attrs: Record<string, string>;
 }
 
+export interface FeaturedCard {
+  image: string;
+  /** The raw description, so the caller can apply its own alt text suffix. */
+  alt: string;
+}
+
 /**
  * Turns the editable tombstone records into the exact card data the original
  * tombstones.js produced, including the data-order-* attributes the filter
@@ -55,4 +61,22 @@ export function buildTombstoneCards(): TombstoneCard[] {
       attrs,
     };
   });
+}
+
+/**
+ * The tombstones marked "featured" in data/tombstones.yml, for the homepage
+ * grid. Sorted by "featured_order" first, then by their position in the main
+ * list, so an editor can control the order without renumbering everything.
+ */
+export function buildFeaturedCards(limit?: number): FeaturedCard[] {
+  const entries: Array<{ item: any; index: number }> = tombstones.map((item: any, index: number) => ({ item, index }));
+  const rank = (entry: { item: any }) =>
+    typeof entry.item.featured_order === "number" ? entry.item.featured_order : Number.POSITIVE_INFINITY;
+
+  const featured: FeaturedCard[] = entries
+    .filter((entry) => entry.item.featured === true)
+    .sort((a, b) => rank(a) - rank(b) || a.index - b.index)
+    .map((entry) => ({ image: entry.item.image, alt: entry.item.alt }));
+
+  return typeof limit === "number" && limit > 0 ? featured.slice(0, limit) : featured;
 }

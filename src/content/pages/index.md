@@ -137,15 +137,7 @@ content_blocks:
     lede: A selection of healthcare and middle-market engagements. Transaction details are presented at a high level and may reflect confidential assignments.
     centered: true
     alt_suffix: representative Synergy Advisors healthcare transaction
-    tombstones:
-      - image: /assets/tombstones/HID-Tombstone-4.5-3.png
-        alt: Health Information Designs sold to KEPRO
-      - image: /assets/tombstones/kdk2.png
-        alt: Kids Dental Kare sold to Western Dental
-      - image: /assets/tombstones/Molina_Abri_feat.png
-        alt: Molina Healthcare acquired Abri Health Plan
-      - image: /assets/tombstones/MARCHVisionCare_united2-1.png
-        alt: MARCH Vision Care sold to UnitedHealthcare
+    limit: 4
     buttons:
       - text: View transaction portfolio
         url: /transactions.html

@@ -1,7 +1,13 @@
 ---
+/**
+ * Homepage tombstone grid. The transactions themselves come from
+ * data/tombstones.yml - anything with "Show on homepage" switched on - so
+ * there is a single source of truth for transaction data.
+ */
 import Section from "./Section.astro";
 import SectionHead from "./SectionHead.astro";
 import Buttons from "./Buttons.astro";
+import { buildFeaturedCards } from "../../lib/transactions";
 
 const {
   background,
@@ -11,17 +17,19 @@ const {
   lede,
   centered = true,
   alt_suffix = "representative Synergy Advisors healthcare transaction",
-  tombstones = [],
+  limit = 4,
   buttons = [],
 } = Astro.props;
+
+const cards = buildFeaturedCards(limit);
 ---
 <Section background={background} section_id={section_id}>
   <div class="container">
     <SectionHead kicker={kicker} heading={heading} lede={lede} center={centered} />
-    <div class="deal-grid" data-editable="array" data-prop="tombstones" data-direction="row">
-      {tombstones.map((item: any) => (
-        <article class="deal-card tombstone-card" data-editable="array-item">
-          <img data-editable="image" data-prop-src="image" src={item.image} alt={`${item.alt} - ${alt_suffix}`} loading="lazy" />
+    <div class="deal-grid">
+      {cards.map((card) => (
+        <article class="deal-card tombstone-card">
+          <img src={card.image} alt={`${card.alt} - ${alt_suffix}`} loading="lazy" />
         </article>
       ))}
     </div>

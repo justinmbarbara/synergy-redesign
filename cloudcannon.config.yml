@@ -40,6 +40,7 @@ collection_groups:
       - pages
   - heading: Site content
     collections:
+      - transactions
       - data
 
 collections_config:
@@ -82,8 +83,26 @@ collections_config:
         remove_extra_inputs: false
         new_preview_url: /
 
+  transactions:
+    path: data
+    glob:
+      - tombstones.yml
+    name: Transactions
+    icon: handshake
+    description: >-
+      Every transaction tombstone on the site. The Transactions page and the
+      homepage both read from here.
+    disable_url: true
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    _enabled_editors:
+      - data
+
   data:
     path: data
+    glob:
+      - '!tombstones.yml'
     name: Site content
     icon: settings_suggest
     disable_url: true
@@ -95,6 +114,8 @@ collections_config:
 
 # Lets Select inputs pull their choices straight from the data files.
 data_config:
+  tombstones:
+    path: data/tombstones.yml
   site:
     path: data/site.yml
   navigation:
@@ -410,17 +431,24 @@ _inputs:
   # ---- transactions --------------------------------------------------------
   tombstones:
     type: array
-    label: Transaction tombstones
-    comment: The order here is the order shown when no sector filter is selected.
+    label: Transactions
+    comment: >-
+      Drag to reorder. This order is what visitors see on the Transactions page
+      when no sector filter is selected.
     options:
       structures: _structures.tombstones
+      disable_add: false
+      disable_remove: false
+      disable_reorder: false
     cascade: true
   service:
     type: select
-    label: Service
+    label: Transaction type
+    comment: Shown on the tombstone card and used by the transaction type labels.
     options:
       values: data.transaction_filters.service_labels
       value_key: id
+      required: true
       preview:
         text:
           - key: label
@@ -428,10 +456,13 @@ _inputs:
   sectors:
     type: multiselect
     label: Sectors
-    comment: Controls which filters this tombstone appears under. The market filter follows automatically.
+    comment: >-
+      Which sector filters this transaction appears under. Pick at least one -
+      the Healthcare / General Middle Market filter follows automatically.
     options:
       values: data.transaction_filters.sectors
       value_key: id
+      required: true
       preview:
         text:
           - key: label
@@ -448,9 +479,31 @@ _inputs:
         text:
           - key: title
     cascade: true
+  featured:
+    type: switch
+    label: Show on homepage
+    comment: Adds this transaction to the grid in the homepage "Representative transactions" section.
+    cascade: true
+  featured_order:
+    type: number
+    label: Homepage position
+    comment: >-
+      Lowest number first. Only used when "Show on homepage" is on. Leave it
+      empty and the transaction goes after the numbered ones.
+    cascade: true
   sector_order:
-    hidden: true
-    comment: Advanced. Pins this tombstone's position inside a single sector filter.
+    type: object
+    label: Position in sector filters
+    comment: >-
+      Advanced and optional. Sets where this transaction sits when a single
+      sector filter is selected, which is how the hand-curated sector ordering
+      is preserved. Lowest number first. Leave a sector empty and the
+      transaction appears at the end of that sector's list.
+    options:
+      preview:
+        text:
+          - Sector filter positions
+        icon: sort
     cascade: true
   market:
     type: select
@@ -721,21 +774,73 @@ _structures:
   tombstones:
     style: modal
     values:
-      - label: Transaction tombstone
-        icon: image
+      - label: Transaction
+        icon: handshake
         value:
           image: ''
           alt: ''
           service: sell
           sectors: []
           case_study: ''
+          featured: false
+          featured_order:
           sector_order: {}
         preview:
           text:
             - key: alt
+            - Untitled transaction
+          subtext:
+            - key: service
           image:
             - key: image
           icon: handshake
+        _inputs:
+          image:
+            type: image
+            label: Tombstone image
+            comment: The tombstone artwork. Portrait artwork looks best - the card crops to a 4:5 box.
+            options:
+              required: true
+              required_message: Every transaction needs a tombstone image.
+              paths:
+                uploads: public/assets/tombstones
+              accepts_mime_types:
+                - image/png
+                - image/jpeg
+                - image/svg+xml
+              max_file_size: 5000
+              max_file_size_message: Keep tombstone images under 5MB so the page stays fast.
+          alt:
+            type: text
+            label: Transaction description
+            comment: >-
+              Describes the deal, e.g. "Kids Dental Kare sold to Western Dental".
+              Used as the image description for screen readers and search
+              engines, and as the label for this transaction in the list above.
+            options:
+              required: true
+              required_message: Describe the transaction so the image has a text alternative.
+          sector_order.payors:
+            type: number
+            label: Payors & Payor Solutions
+          sector_order.providers:
+            type: number
+            label: Providers & Provider Solutions
+          sector_order.government:
+            type: number
+            label: Government Sponsored Programs
+          sector_order.medlife:
+            type: number
+            label: Medical Products / Life Sciences
+          sector_order.consumer:
+            type: number
+            label: Consumer / Retail
+          sector_order.bizit:
+            type: number
+            label: Business Process / IT Services
+          sector_order.segments:
+            type: number
+            label: Additional Targeted Segments
 
   case_studies:
     style: modal
@@ -940,7 +1045,7 @@ _structures:
           lede: ''
           centered: true
           alt_suffix: representative Synergy Advisors healthcare transaction
-          tombstones: []
+          limit: 4
           buttons:
             - text: View transaction portfolio
               url: /transactions.html
@@ -949,13 +1054,14 @@ _structures:
           text:
             - Featured transactions
           subtext:
-            - key: heading
+            - Transactions with "Show on homepage" switched on
         _inputs:
-          tombstones:
-            type: array
-            label: Tombstone images
-            options:
-              structures: _structures.featured_tombstones
+          limit:
+            type: number
+            label: Maximum to show
+            comment: >-
+              How many featured transactions to display. Four fills exactly one
+              row. Leave empty to show every featured transaction.
 
       - label: Three-step framework
         icon: linear_scale
@@ -1311,20 +1417,6 @@ _structures:
             - key: heading
           subtext:
             - key: label
-
-  featured_tombstones:
-    style: select
-    values:
-      - label: Tombstone image
-        icon: image
-        value:
-          image: ''
-          alt: ''
-        preview:
-          text:
-            - key: alt
-          image:
-            - key: image
 
   contact_items:
     style: select
