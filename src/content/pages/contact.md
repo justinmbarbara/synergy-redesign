@@ -1,5 +1,6 @@
 ---
 title: Contact
+url: '/contact.html'
 seo:
   title: Synergy Advisors | Contact
   description: Contact Synergy Advisors at 880 Apollo Street, Suite 230, El Segundo, California for a confidential M&A, financing, or strategic advisory conversation.

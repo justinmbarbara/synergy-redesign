@@ -1,5 +1,6 @@
 ---
 title: Our Team
+url: '/team.html'
 seo:
   title: Synergy Advisors | Our Team
   description: Meet the senior investment bankers leading Synergy Advisors engagements, with experience from Bear Stearns, Bank of America, DLJ, Wells Fargo, Lehman Brothers, KPMG, and Houlihan Lokey.

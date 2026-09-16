@@ -1,5 +1,6 @@
 ---
 title: Privacy notice
+url: '/privacy.html'
 seo:
   title: Synergy Advisors | Privacy Notice
   description: Privacy notice for the Synergy Advisors website.

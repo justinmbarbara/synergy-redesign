@@ -1,5 +1,6 @@
 ---
 title: Transactions
+url: '/transactions.html'
 seo:
   title: Synergy Advisors | Transactions
   description: Explore representative Synergy Advisors healthcare and general middle-market transaction tombstones across M&A, capital raising, strategic advisory, and multiple industry sectors.

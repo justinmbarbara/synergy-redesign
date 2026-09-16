@@ -1,5 +1,6 @@
 ---
 title: Insights
+url: '/insights.html'
 seo:
   title: Synergy Advisors | Market Insights
   description: Healthcare M&A market observations, transaction preparation guidance, and capital markets perspectives from Synergy Advisors.

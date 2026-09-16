@@ -47,8 +47,9 @@ collections_config:
     path: src/content/pages
     name: Pages
     icon: wysiwyg
-    # Keeps the original URLs: firm.md -> /firm.html, index.md -> /index.html
-    url: /[slug].html
+    # Each page states its own built URL in the "url" front matter field, so
+    # the Visual Editor can map a source file to the page Astro outputs.
+    url: '{url}'
     disable_url: false
     disable_add_folder: true
     disable_file_actions: false
@@ -56,6 +57,16 @@ collections_config:
     _enabled_editors:
       - visual
       - data
+    _inputs:
+      # Overrides the site-wide "url" input, which is used for links.
+      url:
+        type: text
+        label: Page URL
+        comment: >-
+          The address this page is published at. Must match the file name:
+          firm.md is published at /firm.html. The home page uses /.
+        options:
+          required: true
     add_options:
       - name: Add a new page
         icon: note_add
@@ -69,7 +80,7 @@ collections_config:
         icon: note_add
         reorder_inputs: true
         remove_extra_inputs: false
-        new_preview_url: /index.html
+        new_preview_url: /
 
   data:
     path: data
