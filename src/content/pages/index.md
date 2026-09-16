@@ -1,6 +1,6 @@
 ---
 title: Home
-url: '/'
+permalink: ''
 seo:
   title: Synergy Advisors | Healthcare M&A Advisory Firm
   description: Synergy Advisors is a senior-led middle-market investment bank in Los Angeles advising healthcare companies, founders, and families on M&A, capital raising, and strategic transactions.

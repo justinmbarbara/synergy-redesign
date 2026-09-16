@@ -1,6 +1,6 @@
 ---
 title: Capabilities
-url: '/services.html'
+permalink: 'services.html'
 seo:
   title: Synergy Advisors | M&A and Capital Raising
   description: Sell-side M&A, buy-side advisory, private capital raising, recapitalizations, strategic advisory, and valuation services for middle-market companies.

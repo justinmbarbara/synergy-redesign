@@ -1,6 +1,6 @@
 ---
 title: The Firm
-url: '/firm.html'
+permalink: 'firm.html'
 seo:
   title: Synergy Advisors | The Firm
   description: Learn about Synergy Advisors, an independent senior-led middle-market investment bank based in El Segundo, California.

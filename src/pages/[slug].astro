@@ -11,6 +11,21 @@ import PageBuilder from "../components/PageBuilder.astro";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
+
+  for (const page of pages) {
+    // CloudCannon maps a source file to its built page through "permalink"
+    // (see cloudcannon.config.yml). Warn loudly if the two drift apart, since
+    // a mismatch silently breaks the Visual Editor rather than the build.
+    const built = page.id === "index" ? "" : `${page.id}.html`;
+    const declared = (page.data as Record<string, any>).permalink ?? "";
+    if (declared !== built) {
+      console.warn(
+        `[pages] ${page.id}.md declares permalink "${declared}" but builds to "/${built}". ` +
+          `Update the permalink so CloudCannon's Visual Editor can find the page.`
+      );
+    }
+  }
+
   return pages.map((page) => ({ params: { slug: page.id }, props: { page } }));
 }
 

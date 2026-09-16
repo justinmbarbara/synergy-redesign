@@ -1,7 +1,7 @@
 ---
 title: New page
-# Must match the file name, e.g. a page saved as careers.md uses /careers.html
-url: /new-page.html
+# Must match the file name, e.g. a page saved as careers.md uses careers.html
+permalink: new-page.html
 seo:
   title: Synergy Advisors | New page
   description: ''

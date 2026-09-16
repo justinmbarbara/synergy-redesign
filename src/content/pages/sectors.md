@@ -1,6 +1,6 @@
 ---
 title: Sectors
-url: '/sectors.html'
+permalink: 'sectors.html'
 seo:
   title: Synergy Advisors | Industry Sectors
   description: Healthcare M&A expertise across payors, providers, healthcare IT, government programs, medical products, life sciences, and selected middle-market sectors.

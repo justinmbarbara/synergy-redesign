@@ -1,6 +1,6 @@
 ---
 title: Terms of use
-url: '/terms.html'
+permalink: 'terms.html'
 seo:
   title: Synergy Advisors | Terms of Use
   description: Website terms of use and investment banking disclosures for Synergy Advisors.
