@@ -1,6 +1,12 @@
-// Registers the page-building components with CloudCannon so the Visual
-// Editor can live re-render a block as it is edited, and render blocks that
-// are added without waiting for a rebuild.
+// Registers components with CloudCannon so the Visual Editor can live
+// re-render them as they are edited, and render items that are added without
+// waiting for a rebuild.
+//
+// Two kinds are registered:
+//   - every page-building block, keyed by its "_name"
+//   - "tombstone", the card used by the transaction grid's Array Editable
+//     Region, so a tombstone added in the Visual Editor renders immediately
+//
 // Loaded only inside CloudCannon's Visual Editor (see BaseLayout.astro).
 import { registerAstroComponent } from "@cloudcannon/editable-regions/astro";
 
@@ -25,6 +31,7 @@ import SectorCards from "../components/blocks/SectorCards.astro";
 import ServiceCards from "../components/blocks/ServiceCards.astro";
 import TeamBios from "../components/blocks/TeamBios.astro";
 import TeamLevels from "../components/blocks/TeamLevels.astro";
+import TombstoneCard from "../components/blocks/TombstoneCard.astro";
 import TransactionExplorer from "../components/blocks/TransactionExplorer.astro";
 
 registerAstroComponent("CardAndCopy", CardAndCopy);
@@ -49,3 +56,6 @@ registerAstroComponent("ServiceCards", ServiceCards);
 registerAstroComponent("TeamBios", TeamBios);
 registerAstroComponent("TeamLevels", TeamLevels);
 registerAstroComponent("TransactionExplorer", TransactionExplorer);
+
+// Array item component for the transaction grid (data/tombstones.yml).
+registerAstroComponent("tombstone", TombstoneCard);

@@ -1,12 +1,14 @@
 ---
 /**
- * The filterable transaction grid. Every card comes from data/tombstones.yml,
- * and the grid is an Array Editable Region so tombstones can also be added,
- * removed and reordered straight from the Visual Editor.
+ * The filterable transaction grid. Every card comes from data/tombstones.yml.
+ *
+ * The grid is an Array Editable Region and each card is an Array Item, both
+ * pointing at the registered "tombstone" component, so CloudCannon can render
+ * a tombstone that was added in the Visual Editor without a rebuild.
  */
 import Section from "./Section.astro";
-import { transactionFilters } from "../../lib/data";
-import { buildTombstoneCards } from "../../lib/transactions";
+import TombstoneCard from "./TombstoneCard.astro";
+import { tombstones, transactionFilters } from "../../lib/data";
 
 const {
   background,
@@ -17,9 +19,7 @@ const {
 } = Astro.props;
 
 const filters = transactionFilters ?? {};
-const cards = buildTombstoneCards();
-const countLabel = `${cards.length} representative engagement${cards.length === 1 ? "" : "s"}`;
-const linkText = filters.case_study_link_text ?? "View case study";
+const countLabel = `${tombstones.length} representative engagement${tombstones.length === 1 ? "" : "s"}`;
 ---
 <Section background={background} section_id={section_id}>
   <div class="container">
@@ -32,13 +32,8 @@ const linkText = filters.case_study_link_text ?? "View case study";
       ))}</div>
     </div>
     <p class="results-count" id="tombstone-count" aria-live="polite">{countLabel}</p>
-    <div class="deal-grid" id="tombstone-grid" data-editable="array" data-prop="@data[tombstones].tombstones" data-direction="row">
-      {cards.map((card) => (
-        <article class="deal-card tombstone-card" data-editable="array-item" {...card.attrs}>
-          <img src={card.image} alt={card.alt} loading="lazy" />
-          <div class="tombstone-meta"><strong>{card.serviceLabel}</strong><span>{card.sectorLabel}</span>{card.caseStudy && <a href={`#${card.caseStudy}`}>{linkText}</a>}</div>
-        </article>
-      ))}
+    <div class="deal-grid" id="tombstone-grid" data-editable="array" data-prop="@data[tombstones].tombstones" data-component="tombstone" data-direction="row">
+      {tombstones.map((item: any, index: number) => <TombstoneCard {...item} index={index} />)}
     </div>
     <p id="deal-empty" hidden style="margin-top:30px;text-align:center;color:var(--muted)">{empty_message}</p>
     {disclaimer && <p style="margin-top:28px;color:var(--muted);font-size:12px">{disclaimer}</p>}

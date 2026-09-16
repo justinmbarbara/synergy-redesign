@@ -1,0 +1,34 @@
+---
+/**
+ * A single transaction tombstone card.
+ *
+ * Everything it renders is derived from one record in data/tombstones.yml,
+ * which is passed in as props. That matters for CloudCannon: the Visual Editor
+ * renders this component on its own, client side, when an editor adds or
+ * reorders a tombstone, so it cannot depend on anything the parent computed.
+ *
+ * Registered with CloudCannon as "tombstone" in src/scripts/register-components.js.
+ */
+import { transactionFilters } from "../../lib/data";
+import { buildTombstoneCard } from "../../lib/transactions";
+
+interface Props {
+  image?: string;
+  alt?: string;
+  service?: string;
+  sectors?: string[];
+  case_study?: string;
+  sector_order?: Record<string, number>;
+  /** Position in data/tombstones.yml. Absent when CloudCannon renders a new card. */
+  index?: number;
+  [key: string]: unknown;
+}
+
+const { index, ...item } = Astro.props;
+const card = buildTombstoneCard(item, index);
+const linkText = transactionFilters?.case_study_link_text ?? "View case study";
+---
+<article class="deal-card tombstone-card" data-editable="array-item" data-component="tombstone" {...card.attrs}>
+  <img data-editable="image" data-prop-src="image" src={card.image} alt={card.alt} loading="lazy" />
+  <div class="tombstone-meta"><strong>{card.serviceLabel}</strong><span>{card.sectorLabel}</span>{card.caseStudy && <a href={`#${card.caseStudy}`}>{linkText}</a>}</div>
+</article>
